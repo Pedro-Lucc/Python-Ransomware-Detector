@@ -4,6 +4,7 @@ import psutil
 import util.generalUtils as generalUtils
 import util.getSystemInfoUtils as getSystemInfoUtils
 
+debug = True
 
 # FUNÇÕES
 # Função para pegar todos os processos e seus dados
@@ -26,11 +27,12 @@ def getProcessesInfo():
         }
 
         # Only for debug
-        if process.pid == 4293:
+        if debug:
+            if process.pid == 39737:
+                running_processes_list.append(process_dict)
+                break
+        else:
             running_processes_list.append(process_dict)
-            break
-
-        # running_processes_list.append(process_dict)
     return running_processes_list
 
 
@@ -54,9 +56,12 @@ def getRAMInfo():
 def getDiskInfo():
     partitions_info = []
     for partition in psutil.disk_partitions():
+        # Dicionário para guardar os dados de uso da partição e nome da partição
         disk_io_config = {
             'all_disks_io': psutil.disk_io_counters(perdisk=True, nowrap=False),
             'current_disk_name': partition.device}
+
+        # Dicionário para guardar informações das partições
         partition_dict = {
             'device': str(partition.device),
             'mountpoint': str(partition.mountpoint),
@@ -77,9 +82,14 @@ def getDiskInfo():
 
 
 while True:
-    print(getDiskInfo())
-    break
-    # sleep(0.5)
-    # generalUtils.clearScreen()
+    print("RANSOMWARE DETECTOR 0.0.1")
+    print("Status: Running")
+    print("Mode: Debug\n")
+    print(f"> Single Process: {getProcessesInfo()}")
+    print(f"> CPU Info: {getCPUInfo()}")
+    print(f"> RAM Info: {getRAMInfo()}")
+    print(f"> DISK Info: {getDiskInfo()}")
+    sleep(0.5)
+    generalUtils.clearScreen()
 
 # process IO counters
