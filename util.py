@@ -12,12 +12,8 @@ def clearScreen():
     else:
         system("clear")
 
+
 # Função para converter bytes em números com unidades mais legíveis
-
-
-33
-
-
 def humanbytes(B, unit):
     B = float(B)
     KB = float(1024)
@@ -35,6 +31,13 @@ def humanbytes(B, unit):
     elif unit == "TB":
         return '{0:.2f} TB'.format(B / TB)
 
+
+# Função para não crashar o programa caso de erro ao pegar o parâmetro user
+def getProcessUser(process_env):
+    try:
+        return str(process_env['USER'])
+    except:
+        return None
 
 # teste = {
 #     'sr0': sdiskio(

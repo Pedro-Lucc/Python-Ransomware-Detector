@@ -12,13 +12,20 @@ def getProcessesInfo():
         process_dict = {
             'name': str(process.name()),
             'pid': str(process.pid),
-            'status': str(process.environ()['USER']),
+            'user': util.getProcessUser(process.environ()),
+            'status': 1,
             'cpu_usafe': int(round(process.cpu_percent() / psutil.cpu_count())),
             'ram_usage': int(round(process.memory_percent('rss'))),
             'read_count': process.io_counters()[0],
             'write_count': process.io_counters()[1]
             }
-        running_processes_list.append(process_dict)
+
+        # Only for debug
+        if process.pid == 4293:
+            running_processes_list.append(process_dict)
+            break
+
+        # running_processes_list.append(process_dict)
     return running_processes_list
         
 
@@ -53,7 +60,9 @@ def getDiskInfo():
     
     return partitions_info
     
-
-print(getProcessesInfo())
+while True:
+    print(getProcessesInfo())
+    sleep(0.5)
+    util.clearScreen()
 
 # process IO counters
