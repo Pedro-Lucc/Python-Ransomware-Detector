@@ -12,13 +12,17 @@ def getProcessesInfo():
     for process in psutil.process_iter():
         process_dict = {
             'name': str(process.name()),
+            'executable_path': str(process.exe()),
             'pid': str(process.pid),
-            'user': generalUtils.getProcessUser(process.environ()),
+            'user': getSystemInfoUtils.getProcessUser(process.environ()),
             'status': 1,
-            'cpu_usafe': int(round(process.cpu_percent() / psutil.cpu_count())),
+            'cpu_usage': int(round(process.cpu_percent() / psutil.cpu_count())),
+            'running_on_cpu': str(process.cpu_num()),
             'ram_usage': int(round(process.memory_percent('rss'))),
             'read_count': process.io_counters()[0],
-            'write_count': process.io_counters()[1]
+            'write_count': process.io_counters()[1],
+            # Talvez usar o children()
+            # connections para ver onde o processo está conectado, porta etc
         }
 
         # Only for debug
@@ -73,9 +77,9 @@ def getDiskInfo():
 
 
 while True:
-    print(getDiskInfo())
-    psutil.disk_io_counters(perdisk=True, nowrap=False)
-    sleep(0.5)
-    generalUtils.clearScreen()
+    print(getProcessesInfo())
+    break
+    #sleep(0.5)
+    #generalUtils.clearScreen()
 
 # process IO counters
