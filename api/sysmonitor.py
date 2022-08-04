@@ -8,6 +8,8 @@ debug = True
 
 # FUNÇÕES
 # Função para pegar todos os processos e seus dados
+
+
 def getProcessesInfo():
     running_processes_list = []
     for process in psutil.process_iter():
@@ -54,7 +56,7 @@ def getRAMInfo():
 
 # Função para pegar as informações das partições no disco
 def getDiskInfo():
-    partitions_info = []
+    partitions_info_list = []
     for partition in psutil.disk_partitions():
         # Dicionário para guardar os dados de uso da partição e nome da partição
         disk_io_config = {
@@ -77,19 +79,41 @@ def getDiskInfo():
             'write_bytes_count': getSystemInfoUtils.getReadWriteSpeed(
                 disk_io_config, "wbc")
         }
-        partitions_info.append(partition_dict)
-    return partitions_info
+        partitions_info_list.append(partition_dict)
+    return partitions_info_list
 
 
-while True:
-    print("RANSOMWARE DETECTOR 0.0.1")
-    print("Status: Running")
-    print("Mode: Debug\n")
-    print(f"> Single Process: {getProcessesInfo()}")
-    print(f"> CPU Info: {getCPUInfo()}")
-    print(f"> RAM Info: {getRAMInfo()}")
-    print(f"> DISK Info: {getDiskInfo()}")
-    sleep(0.5)
-    generalUtils.clearScreen()
+# Função para pegar as informações das NICs
+def getNetworkInfo():
+    for nic_name, nic_info in psutil.net_io_counters(pernic=True).items():
+        nic_info_list = []
+        if nic_name == 'lo':
+            continue
+        nic_info_list = []
+        nic_info_dict = {
+            'name': str(nic_name),
+            'bytes_sent': int(nic_info.bytes_sent),
+            'bytes_received': int(nic_info.bytes_recv),
+            'packets_sent': int(nic_info.packets_sent),
+            'packets_received': int(nic_info.packets_recv)
+        }
+        nic_info_list.append(nic_info_dict)
+    return nic_info_list
 
-# process IO counters
+
+# PROGRAMA
+if __name__ == "__main__":
+    while True:
+        if 1 == 2:
+            print("RANSOMWARE DETECTOR 0.0.1")
+            print("Status: Running")
+            print("Mode: Debug\n")
+            print(f"> Single Process: {getProcessesInfo()}")
+            print(f"> CPU Info: {getCPUInfo()}")
+            print(f"> RAM Info: {getRAMInfo()}")
+            print(f"> DISK Info: {getDiskInfo()}")
+            sleep(0.5)
+            generalUtils.clearScreen()
+        else:
+            print(getNetworkInfo())
+            break
