@@ -1,7 +1,8 @@
 # IMPORTS
 from time import sleep
 import psutil
-import util
+import util.generalUtils as generalUtils
+import util.getSystemInfoUtils as getSystemInfoUtils
 
 
 # FUNÇÕES
@@ -12,13 +13,13 @@ def getProcessesInfo():
         process_dict = {
             'name': str(process.name()),
             'pid': str(process.pid),
-            'user': util.getProcessUser(process.environ()),
+            'user': generalUtils.getProcessUser(process.environ()),
             'status': 1,
             'cpu_usafe': int(round(process.cpu_percent() / psutil.cpu_count())),
             'ram_usage': int(round(process.memory_percent('rss'))),
             'read_count': process.io_counters()[0],
             'write_count': process.io_counters()[1]
-            }
+        }
 
         # Only for debug
         if process.pid == 4293:
@@ -27,7 +28,7 @@ def getProcessesInfo():
 
         # running_processes_list.append(process_dict)
     return running_processes_list
-        
+
 
 # Função para pegar as informações da CPU
 def getCPUInfo():
@@ -49,20 +50,32 @@ def getRAMInfo():
 def getDiskInfo():
     partitions_info = []
     for partition in psutil.disk_partitions():
+        disk_io_config = {
+            'all_disks_io': psutil.disk_io_counters(perdisk=True, nowrap=False),
+            'current_disk_name': partition.device}
         partition_dict = {
             'device': str(partition.device),
             'mountpoint': str(partition.mountpoint),
             'fstype': str(partition.fstype),
             'amount': int(psutil.disk_usage(partition.mountpoint).total),
-            'usage': int(round(psutil.disk_usage(partition.mountpoint).percent))
-            }
+            'usage': int(round(psutil.disk_usage(partition.mountpoint).percent)),
+            'read_count': getSystemInfoUtils.getReadWriteSpeed(
+                disk_io_config, "rc"),
+            'write_count': getSystemInfoUtils.getReadWriteSpeed(
+                disk_io_config, "wc"),
+            'read_bytes_count': getSystemInfoUtils.getReadWriteSpeed(
+                disk_io_config, "rbc"),
+            'write_bytes_count': getSystemInfoUtils.getReadWriteSpeed(
+                disk_io_config, "wbc"),
+        }
         partitions_info.append(partition_dict)
-    
     return partitions_info
-    
+
+
 while True:
-    print(getProcessesInfo())
+    print(getDiskInfo())
+    psutil.disk_io_counters(perdisk=True, nowrap=False)
     sleep(0.5)
-    util.clearScreen()
+    generalUtils.clearScreen()
 
 # process IO counters

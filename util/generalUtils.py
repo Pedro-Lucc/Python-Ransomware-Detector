@@ -32,13 +32,6 @@ def humanbytes(B, unit):
         return '{0:.2f} TB'.format(B / TB)
 
 
-# Função para não crashar o programa caso de erro ao pegar o parâmetro user
-def getProcessUser(process_env):
-    try:
-        return str(process_env['USER'])
-    except:
-        return None
-
 # teste = {
 #     'sr0': sdiskio(
 #         read_count=27,
