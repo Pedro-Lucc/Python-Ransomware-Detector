@@ -1,3 +1,4 @@
 # Python-Ransomware-Detector
-College yearly challenge (FIAP NEXT).
-Heavy work in progress.
+College yearly challenge (FIAP NEXT) by Bash Bunny.
+
+# Heavy work in progress.
