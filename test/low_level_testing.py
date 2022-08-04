@@ -1,4 +1,12 @@
-# Bora
+#
+#
+#
+#
+# ARQUIVO APENAS PARA TESTES!!!!! NÃO ESTÁ SENDO UTILIZADO PARA NADA
+#
+#
+#
+#
 from curses.ascii import isdigit
 import os
 
@@ -12,14 +20,13 @@ for pid in pid_list:
         proc_pid_status_output = reader.read()
 
 
-
 # PEGAR TODOS OS USUÁRIOS DO SISTEMA E SEUS UIDS
 # Variável que terá os nomes de todos os usuário (é pego do arquivo passwd)
 usernames_username_list = []
 # Variável que terá os IDs de cada usuário
 usernames_uid_list = []
 
-# Lendo o arquivo passwd para pegar todos os nomes de usuários e os UIDs respectivos 
+# Lendo o arquivo passwd para pegar todos os nomes de usuários e os UIDs respectivos
 with open("/etc/passwd") as reader:
     # A variável abaixo irá fazer uma lista com cada linha do arquivo passwd
     etc_passwd_lines = reader.read().strip().split("\n")
