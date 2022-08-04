@@ -1,20 +1,59 @@
 # IMPORTS
-from telnetlib import STATUS
 from time import sleep
 import psutil
 import util
 
 
 # FUNÇÕES
-# Função para printar os processos
-while True:
+# Função para pegar todos os processos e seus dados
+def getProcessesInfo():
+    running_processes_list = []
     for process in psutil.process_iter():
-        if "Web Content" in str(process.name) and process.pid == 45425:
-            print(f"Process: {process.name()}")
-            print(f"PID: {process.pid}")
-            print(f"Status: {process.status()}")
-            print(f"User: {process.environ()['USER']}")
-            print(f"CPU usage: {round(process.cpu_percent() / psutil.cpu_count())}%")
-            print(f"RAM usage: {round(process.memory_percent('rss'))}%")
-    sleep(1)
-    util.clearScreen()
+        process_dict = {
+            'name': str(process.name()),
+            'pid': str(process.pid),
+            'status': str(process.environ()['USER']),
+            'cpu_usafe': int(round(process.cpu_percent() / psutil.cpu_count())),
+            'ram_usage': int(round(process.memory_percent('rss'))),
+            'read_count': process.io_counters()[0],
+            'write_count': process.io_counters()[1]
+            }
+        running_processes_list.append(process_dict)
+    return running_processes_list
+        
+
+# Função para pegar as informações da CPU
+def getCPUInfo():
+    return [{
+        'count': str(psutil.cpu_count()),
+        'usage': int(round(psutil.cpu_percent()))
+    }]
+
+
+# Função para pegar as informações da RAM
+def getRAMInfo():
+    return [{
+        'amount': str((psutil.virtual_memory().total)),
+        'usage': int(round(psutil.virtual_memory().percent))
+    }]
+
+
+# Função para pegar as informações das partições no disco
+def getDiskInfo():
+    partitions_info = []
+    for partition in psutil.disk_partitions():
+        partition_dict = {
+            'device': str(partition.device),
+            'mountpoint': str(partition.mountpoint),
+            'fstype': str(partition.fstype),
+            'amount': int(psutil.disk_usage(partition.mountpoint).total),
+            'usage': int(round(psutil.disk_usage(partition.mountpoint).percent))
+            }
+        partitions_info.append(partition_dict)
+    
+    return partitions_info
+    
+
+print(getProcessesInfo())
+
+# process IO counters
