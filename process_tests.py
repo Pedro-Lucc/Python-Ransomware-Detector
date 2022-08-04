@@ -70,16 +70,16 @@ def getDiskInfo():
             'read_bytes_count': getSystemInfoUtils.getReadWriteSpeed(
                 disk_io_config, "rbc"),
             'write_bytes_count': getSystemInfoUtils.getReadWriteSpeed(
-                disk_io_config, "wbc"),
+                disk_io_config, "wbc")
         }
         partitions_info.append(partition_dict)
     return partitions_info
 
 
 while True:
-    print(getProcessesInfo())
+    print(getDiskInfo())
     break
-    #sleep(0.5)
-    #generalUtils.clearScreen()
+    # sleep(0.5)
+    # generalUtils.clearScreen()
 
 # process IO counters
