@@ -104,14 +104,15 @@ def getNetworkInfo():
 # PROGRAMA
 if __name__ == "__main__":
     while True:
-        if 1 == 2:
+        if 1 == 1:
             print("RANSOMWARE DETECTOR 0.0.1")
             print("Status: Running")
-            print("Mode: Debug\n")
+            print(f"Mode: {'Debug' if debug else 'Release'}\n")
             print(f"> Single Process: {getProcessesInfo()}")
             print(f"> CPU Info: {getCPUInfo()}")
             print(f"> RAM Info: {getRAMInfo()}")
             print(f"> DISK Info: {getDiskInfo()}")
+            print(f"> Network Info: {getNetworkInfo()}")
             sleep(0.5)
             generalUtils.clearScreen()
         else:
