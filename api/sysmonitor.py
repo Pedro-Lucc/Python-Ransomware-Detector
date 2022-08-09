@@ -6,10 +6,9 @@ import util.getSystemInfoUtils as getSystemInfoUtils
 
 debug = True
 
+
 # FUNÇÕES
 # Função para pegar todos os processos e seus dados
-
-
 def getProcessesInfo():
     running_processes_list = []
     for process in psutil.process_iter():
@@ -30,7 +29,7 @@ def getProcessesInfo():
 
         # Only for debug
         if debug:
-            if process.pid == 39737:
+            if process.pid == 2794:
                 running_processes_list.append(process_dict)
                 break
         else:
@@ -86,9 +85,6 @@ def getDiskInfo():
 # Função para pegar as informações das NICs
 def getNetworkInfo():
     for nic_name, nic_info in psutil.net_io_counters(pernic=True).items():
-        nic_info_list = []
-        if nic_name == 'lo':
-            continue
         nic_info_list = []
         nic_info_dict = {
             'name': str(nic_name),

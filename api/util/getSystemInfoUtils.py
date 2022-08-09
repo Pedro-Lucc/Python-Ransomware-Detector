@@ -18,3 +18,4 @@ def getReadWriteSpeed(disk_io_config, operation):
         return disk_io_config['all_disks_io'][disk_name][2]
     elif operation == "wbc":
         return disk_io_config['all_disks_io'][disk_name][3]
+    #psutil.disk_io_counters(perdisk=True, nowrap=False)['sda1'][0]

