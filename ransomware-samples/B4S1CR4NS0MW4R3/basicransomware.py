@@ -4,7 +4,7 @@ import pathlib
 from cryptography.fernet import Fernet
 
 # Caminho teste para criptografar/descriptografar
-# python basicaransomware.py -p "/home/matheusheidemann/Documents/Python Files/Python-Ransomware-Detector/ransomware-samples/encrypt-test"
+# python basicaransomware.py -p "/home/matheusheidemann/Documents/Python Files/Python-Ransomware-Detector/ransomware-samples/encrypt-test".
 
 
 # CLASSES
