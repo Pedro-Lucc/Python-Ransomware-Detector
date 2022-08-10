@@ -5,7 +5,7 @@ import math
 import fleep
 from timeit import default_timer as timer
 
-# ! ESTE CÓDIGO NÃO ESTÁ SENDO USADO COMO PARTE DO PROJETO. APENAS MATERIAL DE ESTUDO.
+# ! NO MOMENTO, ESTE CÓDIGO NÃO ESTÁ SENDO USADO COMO PARTE DO PROJETO. APENAS MATERIAL DE ESTUDO.
 
 
 def shennon_entropy(frequency_list):
