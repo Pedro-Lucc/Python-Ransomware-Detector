@@ -1,17 +1,21 @@
+# TODO PRINTAR A QUANTIDADE DE DIRETÓRIOS EXISTENTES NO SISTEMA, INPUT DE QUAL INTERVALO DE DIRETÓRIOS SERÁ COLOCADO UM HONEYPOT
+
 import random
 import string
 import os
 import hashlib
+from timeit import default_timer as timer
 
 
+# Gerar string aleatória
 def randomString():
     # get random password pf length 8 with letters, digits, and symbols
     characters = string.ascii_letters + string.digits + string.punctuation
     random_string = ''.join(random.choice(characters) for i in range(50))
-    print("Random password is:", random_string)
     return random_string
 
 
+# Gerar uma hash para o arquivo honeypot
 def generateHash(honeypot_file):
     file_data = honeypot_file.read()  # read file as bytes
     readable_hash = hashlib.md5(file_data).hexdigest()
@@ -20,34 +24,57 @@ def generateHash(honeypot_file):
         "hash": readable_hash
     }
     honeypot_files_hash_list.append(honeypot_file_hash_dict)
-    print(honeypot_files_hash_list)
 
 
-def generateHoneypots(directory, honeypot_file_name):
+# Gerar as honeypots
+def generateHoneypots(directory_list, honeypot_file_name):
     global honeypot_files_hash_list
-    if 1 == 2:
-        for current_path, _, files_in_current_path in os.walk(directory):
-            with open(current_path + '/' + honeypot_file_name, 'w') as file:
-                file.write("THIS IS A PYTHON RANSOMWARE DETECTOR FILE! PLEASE! DO NOT MOVE, DELETE, RENAME OR MODIFY THIS FILE!\n")
-                honeypot_file.write(randomString())
-            with open(directory + '/' + '.ransomware-detector', 'rb') as honeypot_file:
-                generateHash(honeypot_file)
-    else:
-        with open(directory + '/' + honeypot_file_name, 'w') as honeypot_file:
-            honeypot_file.write("THIS IS A PYTHON RANSOMWARE DETECTOR FILE! PLEASE! DO NOT MOVE, DELETE, RENAME OR MODIFY THIS FILE!\n")
-            honeypot_file.write(randomString())
-        with open(directory + '/' + '.ransomware-detector', 'rb') as honeypot_file:
-            generateHash(honeypot_file)
+    counter = 0
+    for directory in directory_list:
+        for current_path, _, _ in os.walk(directory):
+            counter = counter + 1
+            if counter % 1 == 0 or counter == 1 or 1 == 1:
+                # Criar um honeypot a cada 10 diretórios
+                with open(current_path + '/' + honeypot_file_name, 'w') as honeypot_file:
+                    honeypot_file.write("THIS IS A PYTHON RANSOMWARE DETECTOR FILE! PLEASE! DO NOT MOVE, DELETE, RENAME OR MODIFY THIS FILE!\n")
+                    honeypot_file.write(randomString())
+                with open(current_path + '/' + honeypot_file_name, 'rb') as honeypot_file:
+                    generateHash(honeypot_file)
 
 
+# Deletar as honeypots
 def deleteHoneypots(directory, honeypot_file_name):
-    for current_path, _, files_in_current_path in os.walk(directory):
-        os.remove(directory + '/' + honeypot_file_name)
+    for current_path, _, files in os.walk(directory):
+        os.remove(current_path + '/' + honeypot_file_name)
 
 
+# Main
 if __name__ == "__main__":
-    # Lista de diretórios que terão honeypots criados
-    directory_list = ["/home/matheusheidemann/Documents/Python Files/Python-Ransomware-Detector/ransomware-samples/encrypt-test"]
-    honeypot_files_hash_list = []
-    honeypot_file_name = ".r4n50mw4r3-d373c70r"
-    generateHoneypots(directory_list, honeypot_file_name)
+    start = timer()
+    if not os.path.exists('./ransom-detector-hashes-list'):
+        # DEbug para deletar
+        delete = True
+        # Lista de diretórios que terão honeypots criados
+        directory_list = ["/home/"]
+        # Lista com o hash de cada hobneypot criado
+        honeypot_files_hash_list = []
+        honeypot_file_name = ".r4n50mw4r3-d373c70r"
+
+        if not delete:
+            generateHoneypots(directory_list, honeypot_file_name)
+        else:
+            for directory in directory_list:
+                deleteHoneypots(directory, honeypot_file_name)
+
+        with open('./test/ransom-detector-hashes-list', 'w') as hashes_file:
+            if not delete:
+                index = 0
+                for honeypot_dict in honeypot_files_hash_list:
+                    hashes_file.write(f"[{index}] Directory: {honeypot_dict['absolute_path']} --- MD5 Hash: {honeypot_dict['hash']}\n")
+                    index = index + 1
+            else:
+                os.remove('./test/ransom-detector-hashes-list')
+
+    end = timer()
+    time_taken = end - start
+    print(f"Ação realizada com sucesso em {round(time_taken)} segundos.")
