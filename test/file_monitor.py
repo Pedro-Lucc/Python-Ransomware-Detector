@@ -1,88 +1,58 @@
-import os
+# TODO MONITORAR O TAMANHO DOS ARQUIVOS, OS BYTES MODIFICADOS PARA CHECAR SE ESTÃO CRIPTOGRAFADOS, A QUANTIDADE DE MODIFICAÇÕES POR SEGUNDO (SE É SUSPEITA), A EXTENSÃO DO ARQUIVO, FAZER UM BACKUP DO ARQUIVO ANTES DELE SER MODIFICADO
+
 import time
-import ransomware_check
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
-rename_counter = []
-counter = 0
 
-
+# Classe FileSystemModifications, que herda a classe FileSystemEventHandler do watchdog
+# event.src_path é basicamente o caminho que o handler retorna
 class FileSystemModifications(FileSystemEventHandler):
-    global rename_counter
-
-    def on_created(self, event):
+    def on_create(self, event):
         print("Created: " + event.src_path)
-        time.sleep(10)  # wait for the user to write the name of the file.
-        ransomware_check.main()
+        print("\n" + str(event))
 
     def on_deleted(self, event):
         print("Deleted: " + event.src_path)
+        print("\n" + str(event))
 
     def on_modified(self, event):
         print("Modified: " + event.src_path)
-        ransomware_check.main()
+        print("\n" + str(event))
 
     def on_moved(self, event):
         print("Moved or Renamed: " + event.src_path)
-        path, file = os.path.split(event.src_path)
-        rename_counter.append(file)
-        # One indication to know how to check Ransomware attack is when there is an increase
-        # in file renames and your data becomes encrypted.
-        # therefore, if we identify many of file renames, it's potential Ransomware issue.
-        if len(rename_counter) > 2:
-            print(f"The files {rename_counter} might be encrypted!")
-        ransomware_check.main()
+        print("\n" + str(event))
 
-
-if __name__ == "__main__":
-    paths = ['path_to_folder_or_file']
-    event_handler = FileSystemModifications()
-    observer = Observer()
-
-    observers = []
-
-    # iterate through paths and attach observers
-    for line in paths:
-        # convert line into string and strip newline character
-        targetPath = str(line).rstrip()
-
-        # Schedules watching of a given path
-        observer.schedule(event_handler, targetPath)
-        # Add observable to list of observers
-        observers.append(observer)
-
-    # start observer
-    observer.start()
-    try:
-        while True:
-            # poll every 5 second
-            counter += 1
-            print(f'round {counter}')
-            time.sleep(5)
-    except KeyboardInterrupt:
-        for o in observers:
-            o.unschedule_all()
-            # stop observer - if interrupted.
-            o.stop()
-    for o in observers:
-        # Wait until the thread terminates before exit.
-        o.join()
 
 if __name__ == "__main__":
     # Os caminhos que serão monitorados pelo WatchDog Observer
-    paths_to_monitor = ["/home"]
+    paths_to_monitor = ["/home/matheusheidemann/Documents/Python Files/Python-Ransomware-Detector/ransomware-samples/encrypt-test/"]
     # Lista que conterá todos os Observers ativos
     observers = []
 
-    for path in paths_to_monitor:
-        Observer().schedule(FileSystemModifications, path)
-        observers.append(Observer())
+    # Criando uma variável para iniciar cada classe
+    observer = Observer()
+    event_handler = FileSystemModifications()
 
+    # Criar um observer que receberá o handler "FileSystemModifications" e o caminho atual do loop
+    for path in paths_to_monitor:
+        # Criação do observer
+        observer.schedule(event_handler, path, recursive=True)
+        # Colocando o observer criado na lista dos observers
+        observers.append(observer)
+
+    # Iniciar o observer
+    observer.start()
+
+    # Rodar o monitoramento dos observers definidos
     try:
         while True:
+            # Será feito um scan a cada 1 segundos
             time.sleep(1)
+    # Caso o usuário interrompa o funcionamento, todos os observer serão finalizados
     except KeyboardInterrupt:
         for observer in observers:
             observer.unschedule_all()
             observer.stop()
+            observer.join()
