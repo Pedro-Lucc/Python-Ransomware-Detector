@@ -1,3 +1,4 @@
+# ESTE CÓDIGO NÃO ESTÁ SENDO USADO PARA NADA NO MOMENTO
 honeypot_list = []
 
 

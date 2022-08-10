@@ -1,5 +1,6 @@
 # TODO PRINTAR A QUANTIDADE DE DIRETÓRIOS EXISTENTES NO SISTEMA, INPUT DE QUAL INTERVALO DE DIRETÓRIOS SERÁ COLOCADO UM HONEYPOT
 
+import json
 import random
 import string
 import os
@@ -33,7 +34,7 @@ def generateHoneypots(directory_list, honeypot_file_name):
     for directory in directory_list:
         for current_path, _, _ in os.walk(directory):
             counter = counter + 1
-            if counter % 5 == 0 or counter == 1:
+            if counter % 20 == 0 or counter == 1:
                 try:
                     if os.access(current_path, os.W_OK):
                         # Criar um honeypot a cada 10 diretórios
@@ -61,7 +62,7 @@ def deleteHoneypots(directory, honeypot_file_name):
 # Main
 if __name__ == "__main__":
     start = timer()
-    if not os.path.exists('./ransom-detector-hashes-list'):
+    if not os.path.exists('./ransom-detector-hashes-list.json'):
         # DEbug para deletar
         delete = False
         # Lista de diretórios que terão honeypots criados
@@ -76,14 +77,12 @@ if __name__ == "__main__":
             for directory in directory_list:
                 deleteHoneypots(directory, honeypot_file_name)
 
-        with open('./test/ransom-detector-hashes-list', 'w') as hashes_file:
+        json_object = json.dumps(honeypot_files_hash_list, indent=4)
+        with open('./test/ransom-detector-hashes-list.json', 'w') as hashes_file:
             if not delete:
-                index = 0
-                for honeypot_dict in honeypot_files_hash_list:
-                    hashes_file.write(f"[{index}] Directory: {honeypot_dict['absolute_path']} --- MD5 Hash: {honeypot_dict['hash']}\n")
-                    index = index + 1
+                hashes_file.write(json_object)
             else:
-                os.remove('./test/ransom-detector-hashes-list')
+                os.remove('./test/ransom-detector-hashes-list.json')
 
     end = timer()
     time_taken = end - start
