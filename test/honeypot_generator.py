@@ -33,19 +33,29 @@ def generateHoneypots(directory_list, honeypot_file_name):
     for directory in directory_list:
         for current_path, _, _ in os.walk(directory):
             counter = counter + 1
-            if counter % 1 == 0 or counter == 1 or 1 == 1:
-                # Criar um honeypot a cada 10 diretórios
-                with open(current_path + '/' + honeypot_file_name, 'w') as honeypot_file:
-                    honeypot_file.write("THIS IS A PYTHON RANSOMWARE DETECTOR FILE! PLEASE! DO NOT MOVE, DELETE, RENAME OR MODIFY THIS FILE!\n")
-                    honeypot_file.write(randomString())
-                with open(current_path + '/' + honeypot_file_name, 'rb') as honeypot_file:
-                    generateHash(honeypot_file)
+            if counter % 5 == 0 or counter == 1:
+                try:
+                    if os.access(current_path, os.W_OK):
+                        # Criar um honeypot a cada 10 diretórios
+                        with open(current_path + '/' + honeypot_file_name, 'w') as honeypot_file:
+                            honeypot_file.write("THIS IS A PYTHON RANSOMWARE DETECTOR FILE! PLEASE! DO NOT MOVE, DELETE, RENAME OR MODIFY THIS FILE!\n")
+                            honeypot_file.write(randomString())
+                        with open(current_path + '/' + honeypot_file_name, 'rb') as honeypot_file:
+                            generateHash(honeypot_file)
+                except Exception as e:
+                    print(f'[-] ERROR in {current_path} --- {str(e.__class__.__name__)}')
+                    continue
 
 
 # Deletar as honeypots
 def deleteHoneypots(directory, honeypot_file_name):
-    for current_path, _, files in os.walk(directory):
-        os.remove(current_path + '/' + honeypot_file_name)
+    for current_path, _, _ in os.walk(directory):
+        try:
+            if os.access(current_path, os.W_OK):
+                os.remove(current_path + '/' + honeypot_file_name)
+        except Exception as e:
+            print(f'[-] ERROR in {current_path} --- {str(e.__class__.__name__)}')
+            continue
 
 
 # Main
@@ -53,7 +63,7 @@ if __name__ == "__main__":
     start = timer()
     if not os.path.exists('./ransom-detector-hashes-list'):
         # DEbug para deletar
-        delete = True
+        delete = False
         # Lista de diretórios que terão honeypots criados
         directory_list = ["/home/"]
         # Lista com o hash de cada hobneypot criado
