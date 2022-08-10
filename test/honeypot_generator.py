@@ -34,7 +34,7 @@ def generateHoneypots(directory_list, honeypot_file_name):
     for directory in directory_list:
         for current_path, _, _ in os.walk(directory):
             counter = counter + 1
-            if counter % 20 == 0 or counter == 1:
+            if counter % 20 == 0 or counter == 1 or 1 == 1:
                 try:
                     if os.access(current_path, os.W_OK):
                         # Criar um honeypot a cada 10 diretórios
@@ -66,10 +66,10 @@ if __name__ == "__main__":
         # DEbug para deletar
         delete = False
         # Lista de diretórios que terão honeypots criados
-        directory_list = ["/home/"]
+        directory_list = ["/home/matheusheidemann/Documents/Python Files/Python-Ransomware-Detector/ransomware-samples/encrypt-test"]
         # Lista com o hash de cada hobneypot criado
         honeypot_files_hash_list = []
-        honeypot_file_name = ".r4n50mw4r3-d373c70r"
+        honeypot_file_name = ".r4n50mw4r3-d373c70r.txt"
 
         if not delete:
             generateHoneypots(directory_list, honeypot_file_name)

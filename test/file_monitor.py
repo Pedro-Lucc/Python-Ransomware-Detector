@@ -1,5 +1,7 @@
 # TODO MONITORAR O TAMANHO DOS ARQUIVOS, OS BYTES MODIFICADOS PARA CHECAR SE ESTÃO CRIPTOGRAFADOS, A QUANTIDADE DE MODIFICAÇÕES POR SEGUNDO (SE É SUSPEITA), A EXTENSÃO DO ARQUIVO, FAZER UM BACKUP DO ARQUIVO ANTES DELE SER MODIFICADO
 
+import hashlib
+import json
 import time
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
@@ -8,26 +10,19 @@ from watchdog.events import FileSystemEventHandler
 # Classe FileSystemModifications, que herda a classe FileSystemEventHandler do watchdog
 # event.src_path é basicamente o caminho que o handler retorna
 class FileSystemModifications(FileSystemEventHandler):
-    def on_create(self, event):
-        print("Created: " + event.src_path)
-        print("\n" + str(event))
-
-    def on_deleted(self, event):
-        print("Deleted: " + event.src_path)
-        print("\n" + str(event))
-
     def on_modified(self, event):
-        print("Modified: " + event.src_path)
-        print("\n" + str(event))
-
-    def on_moved(self, event):
-        print("Moved or Renamed: " + event.src_path)
-        print("\n" + str(event))
+        for dict in hashes_json:
+            if event.src_path == dict['absolute_path']:
+                with open(event.src_path, 'rb') as honeypot_file:
+                    file_data = honeypot_file.read()  # read file as bytes
+                    current_hash = hashlib.md5(file_data).hexdigest()
+                    if current_hash != dict['hash']:
+                        print(f"Honeypot in {event.src_path} was modified!")
 
 
 if __name__ == "__main__":
     # Os caminhos que serão monitorados pelo WatchDog Observer
-    paths_to_monitor = ["/home/matheusheidemann/Documents/Python Files/Python-Ransomware-Detector/ransomware-samples/encrypt-test/"]
+    paths_to_monitor = ["/home/matheusheidemann/Documents/Python Files/Python-Ransomware-Detector/ransomware-samples/encrypt-test"]
     # Lista que conterá todos os Observers ativos
     observers = []
 
@@ -44,6 +39,10 @@ if __name__ == "__main__":
 
     # Iniciar o observer
     observer.start()
+
+    # PRINT JSON
+    with open('/home/matheusheidemann/Documents/Python Files/Python-Ransomware-Detector/test/ransom-detector-hashes-list.json') as a:
+        hashes_json = json.load(a)
 
     # Rodar o monitoramento dos observers definidos
     try:
