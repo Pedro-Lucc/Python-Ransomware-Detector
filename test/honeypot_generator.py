@@ -66,7 +66,7 @@ if __name__ == "__main__":
         # DEbug para deletar
         delete = False
         # Lista de diretórios que terão honeypots criados
-        directory_list = ["/home/matheusheidemann/Documents/Python Files/Python-Ransomware-Detector/ransomware-samples/encrypt-test"]
+        directory_list = ["/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test"]
         # Lista com o hash de cada hobneypot criado
         honeypot_files_hash_list = []
         honeypot_file_name = ".r4n50mw4r3-d373c70r.txt"
@@ -78,12 +78,12 @@ if __name__ == "__main__":
                 deleteHoneypots(directory, honeypot_file_name)
 
         json_object = json.dumps(honeypot_files_hash_list, indent=4)
-        with open('./test/ransom-detector-hashes-list.json', 'w') as hashes_file:
+        with open('./ransom-detector-hashes-list.json', 'w') as hashes_file:
             if not delete:
                 hashes_file.write(json_object)
             else:
-                os.remove('./test/ransom-detector-hashes-list.json')
+                os.remove('./ransom-detector-hashes-list.json')
 
     end = timer()
     time_taken = end - start
-    print(f"Ação realizada com sucesso em {round(time_taken)} segundos.")
+    print(f"Ação realizada com sucesso em {round(time_taken,3)} segundos.")

