@@ -8,6 +8,7 @@ import signal
 import subprocess
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
+from software.logger import logger
 
 
 # Classe FileSystemModifications, que herda a classe FileSystemEventHandler do watchdog

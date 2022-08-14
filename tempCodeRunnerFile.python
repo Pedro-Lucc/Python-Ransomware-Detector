@@ -1,5 +1,0 @@
-import subprocess
-
-while True:
-    text = subprocess.check_output(["fuser", "-u", "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples"])
-    print(text)
