@@ -1,4 +1,4 @@
 import logging
 
-logger = logging
-logger.basicConfig(level=logging.DEBUG, format='[%(levelname)s] %(filename)s ---- %(message)s')
+logging.basicConfig(level=logging.DEBUG, format='[%(name)s] [%(levelname)s] %(filename)s %(lineno)d ---- %(message)s')
+logger = logging.getLogger("ransomdetect")

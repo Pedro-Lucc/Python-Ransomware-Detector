@@ -98,6 +98,7 @@ class HoneypotGenerator:
                 os.remove(os.path.join(self.path_to_config_folder, self.json_file_name))
             except FileNotFoundError:
                 logger.error(f'Could not find {self.json_file_name} in {self.path_to_config_folder}')
+                quit()
 
     def run(self):
         start = time.perf_counter()
@@ -121,7 +122,7 @@ if __name__ == "__main__":
         json_file_name="ransom-detector-hashes-list.json",
         # honeypot_interval=2,
         disable_honeypot_interval=True,
-        delete=True
+        delete=False
     )
     hg.run()
 
