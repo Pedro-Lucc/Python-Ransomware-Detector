@@ -11,7 +11,7 @@ from datetime import datetime
 import hashlib
 import json
 import os
-import signal
+from signal import SIGKILL
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 import logging
@@ -45,16 +45,15 @@ class FileMonitor:
                                 current_hash = hashlib.md5(file_data).hexdigest()
                                 if current_hash != dict['hash']:
                                     logger.debug(f"Honeypot in {event.src_path} was modified!")
-                                    try:
-                                        file_monitor_pid = os.getpid()
-                                        ransomware_pid = audit.getAuditRuleReport(event.src_path, "pid")
-                                        if str(ransomware_pid) != str(file_monitor_pid):
+                                    file_monitor_pid = os.getpid()
+                                    ransomware_pid = audit.getAuditRuleReport(event.src_path, "pid")
+                                    print(ransomware_pid)
+                                    if str(ransomware_pid) != str(file_monitor_pid):
+                                        if ransomware_pid != None:
                                             logger.debug(f"The Ransomware process PID is: {ransomware_pid}")
-                                            os.kill(int(ransomware_pid), signal.SIGKILL)
+                                            os.kill(int(ransomware_pid), SIGKILL)
                                             logger.debug(f"Ransomware with process PID {ransomware_pid} was killed!")
-                                    except Exception as e:
-                                        logger.error(e)
-                                        continue
+
                 except Exception as e:
                     logger.error(str(e.__class__.__name__))
                     pass

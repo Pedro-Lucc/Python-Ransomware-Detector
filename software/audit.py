@@ -55,24 +55,23 @@ def checkForDuplicateRules(path_to_custom_rule_file):
 
 
 def getAuditRuleReport(fm_honeypot_file_path, action):
-    last_honeypot_file_event = subprocess.check_output(["ausearch", "-k", "ransomware-detector-key"], stderr=subprocess.DEVNULL).decode().rstrip().split("----")[-0, 5]
-    have = fm_honeypot_file_path in re.findall(path_pattern, last_honeypot_file_event)
-    print("HAVE - " + str(have))
-    print(last_honeypot_file_event)
-    if fm_honeypot_file_path in re.findall(path_pattern, last_honeypot_file_event):
-        ppid, pid = re.findall(ppid_pid_pattern, last_honeypot_file_event)
+    last_honeypot_file_event = subprocess.check_output(["ausearch", "-k", "ransomware-detector-key"], stderr=subprocess.DEVNULL).decode().rstrip().split("----")[-1:]
+    try:
+        ppid, pid = re.findall(ppid_pid_pattern, last_honeypot_file_event[0])
         if action == "pid":
             return pid
         elif action == "ppid":
             return ppid
         elif action == "ppid-pid":
             return ppid, pid
+    except Exception as e:
+        print(e)
 
-        # fm_event_time_as_unix = time.mktime(fm_event_time.timetuple())
-        # for honeypot_file_event in honeypot_file_event_list:
-        #     event_times = re.search(time_pattern, honeypot_file_event).group()
-        #     for event_time in event_times:
-        #         print()
+    # fm_event_time_as_unix = time.mktime(fm_event_time.timetuple())
+    # for honeypot_file_event in honeypot_file_event_list:
+    #     event_times = re.search(time_pattern, honeypot_file_event).group()
+    #     for event_time in event_times:
+    #         print()
 
 
 ppid_pid_pattern = "(?<=pid=)(.*?)(?=\ )"

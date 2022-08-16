@@ -148,7 +148,7 @@ if __name__ == "__main__":
         audit_custom_rules_key="ransomware-detector-key",
         # honeypot_interval=5,
         disable_honeypot_interval=True,
-        delete=False
+        delete=True
     )
     hg.run()
 
