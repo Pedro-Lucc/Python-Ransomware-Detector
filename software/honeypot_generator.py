@@ -1,4 +1,8 @@
-# TODO PRINTAR A QUANTIDADE DE DIRETÓRIOS EXISTENTES NO SISTEMA, INPUT DE QUAL INTERVALO DE DIRETÓRIOS SERÁ COLOCADO UM HONEYPOT
+# TODO
+# PRINTAR A QUANTIDADE DE DIRETÓRIOS EXISTENTES NO SISTEMA (COM BASE NOS DIRETÓRIOS PASSADOS)
+# INPUT DE QUAL INTERVALO DE DIRETÓRIOS SERÁ COLOCADO UM HONEYPOT
+# CRIAR NOVOS HONEYPOTS PARA NOVOS DIRETÓRIOS
+# ATUALIZAR JSON QUANDO ARQUIVOS HONEYPOT SÃO MOVIDOS
 
 import json
 import random
@@ -6,14 +10,17 @@ import string
 import os
 import hashlib
 import time
+import audit
 
 
 class HoneypotGenerator:
-    def __init__(self, directory_list, honeypot_file_name, path_to_config_folder, json_file_name, honeypot_interval=2, disable_honeypot_interval=False, delete=False):
+    def __init__(self, directory_list, honeypot_file_name, path_to_config_folder, json_file_name, path_to_audit_custom_rule_file, audit_custom_rules_key, honeypot_interval=2, disable_honeypot_interval=False, delete=False):
         self.directory_list = directory_list
         self.honeypot_file_name = honeypot_file_name
         self.path_to_config_folder = path_to_config_folder
         self.json_file_name = json_file_name
+        self.path_to_audit_custom_rule_file = path_to_audit_custom_rule_file
+        self.audit_custom_rules_key = audit_custom_rules_key
         self.honeypot_interval = honeypot_interval
         self.disable_honeypot_interval = disable_honeypot_interval
         self.delete = delete
@@ -43,7 +50,14 @@ class HoneypotGenerator:
         counter = 0
 
         for directory in self.directory_list:
+            directory_count = 0
+            for root in os.walk(directory):
+                directory_count += 1
+
             logger.debug(f"Creating honeypots in: {directory}")
+            logger.debug(f"There are {directory_count} subdirectories inside {directory}")
+            logger.debug(f"The honeypot creation interval is set to: {self.honeypot_interval if not self.disable_honeypot_interval else 'disabled'}")
+            logger.debug(f"It will be created {round(directory_count / self.honeypot_interval) if not self.disable_honeypot_interval else directory_count} honeypots")
             for current_path, _, _ in os.walk(directory):
                 counter += 1
                 if counter % self.honeypot_interval == 0 or counter == 1 or self.disable_honeypot_interval:
@@ -58,8 +72,11 @@ class HoneypotGenerator:
                             with open(os.path.join(current_path, self.honeypot_file_name), 'rb') as honeypot_file:
                                 self.__generateHash(honeypot_file)
 
+                            # Criar a regra no audit
+                            audit.createAuditRule(self.path_to_audit_custom_rule_file, os.path.join(current_path, self.honeypot_file_name), self.audit_custom_rules_key)
+
                     except Exception as e:
-                        logger.error(f'Found an error in {current_path}: {str(e.__class__.__name__)}')
+                        logger.error(e)
                         continue
 
         # Gerar o JSON para os honeypot files criados e suas respectivas hashes
@@ -79,14 +96,17 @@ class HoneypotGenerator:
 
     def __deleteHoneypots(self):
         for directory in self.directory_list:
+            deleted_count = 0
             logger.debug(f"Deleting honeypots in: {directory}")
             for current_path, _, _ in os.walk(directory):
                 try:
                     if os.access(current_path, os.W_OK):
                         os.remove(os.path.join(current_path, self.honeypot_file_name))
+                        deleted_count += 1
                 except Exception as e:
                     logger.error(f'Found an error in {current_path}: {str(e.__class__.__name__)}')
                     continue
+            logger.debug(f"Deleted a total of {deleted_count} honeypots in {directory}")
 
     # Deletar o JSON das hashes
         self.__deleteJson()
@@ -99,6 +119,10 @@ class HoneypotGenerator:
             except FileNotFoundError:
                 logger.error(f'Could not find {self.json_file_name} in {self.path_to_config_folder}')
                 quit()
+
+    # Atualizar o json caso haja alguma mudança
+    def updateJson(self):
+        print("atualizar o json")
 
     def run(self):
         start = time.perf_counter()
@@ -120,7 +144,9 @@ if __name__ == "__main__":
         honeypot_file_name=".r4n50mw4r3-d373c70r.txt",
         path_to_config_folder="/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/software/config",
         json_file_name="ransom-detector-hashes-list.json",
-        # honeypot_interval=2,
+        path_to_audit_custom_rule_file="/etc/audit/rules.d/ransomware-detector.rules",
+        audit_custom_rules_key="ransomware-detector-key",
+        # honeypot_interval=5,
         disable_honeypot_interval=True,
         delete=False
     )

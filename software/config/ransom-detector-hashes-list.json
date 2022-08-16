@@ -1,18 +1,374 @@
 [
     {
         "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/.r4n50mw4r3-d373c70r.txt",
-        "hash": "15009df6cec68da4ca49228111a3e28d"
+        "hash": "749d18d24792efe235e126f18616b0f8"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha (3rd copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "a0e090f9a8ee937adf0eb5fdb3c274ff"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha (3rd copy)/minhapastinha (3rd copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "b00f07b70d230ca9753bab923b7a29a3"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha (3rd copy)/minhapastinha (another copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "47947e2944375f52b1c4c21176c5cab8"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha (3rd copy)/minhapastinha (copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "eda3ced6144f199ac4ec5578768ffaa4"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha (3rd copy)/minhapasta (3rd copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "16722e7f4145968f76b8421c6597310f"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha (3rd copy)/minhapasta (3rd copy)/outrapasta/.r4n50mw4r3-d373c70r.txt",
+        "hash": "63199d644cdc267958b2b562d62d13ce"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha (3rd copy)/minhapasta (copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "d969ffe2393dc5eaded6cf4b1ef3ea06"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha (3rd copy)/minhapasta (copy)/outrapasta/.r4n50mw4r3-d373c70r.txt",
+        "hash": "47673f90a9277fafea8ae5b2d9b5f713"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha (3rd copy)/minhapastinha/.r4n50mw4r3-d373c70r.txt",
+        "hash": "ec8fd7576bd26d6e071cd7fdd18ec755"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha (3rd copy)/minhapasta (another copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "597aca9729ad188723f4bbb6b7f45eff"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha (3rd copy)/minhapasta (another copy)/outrapasta/.r4n50mw4r3-d373c70r.txt",
+        "hash": "495aa944539e6a50daaf6ece16d56af6"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha (another copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "851a11249b98b95ecf38e092664fd080"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha (another copy)/minhapastinha (3rd copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "f4fb54794586af75baf389c6dea15119"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha (another copy)/minhapastinha (another copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "62866617abb46b1896e297e26c2a9d58"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha (another copy)/minhapastinha (copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "c74804acdf725628866a3d24df269be5"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha (another copy)/minhapasta (3rd copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "5c87829e0fad1f0a8b41acd10a92135a"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha (another copy)/minhapasta (3rd copy)/outrapasta/.r4n50mw4r3-d373c70r.txt",
+        "hash": "042aae2429536cd11b491c6cbd9b5d95"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha (another copy)/minhapasta (copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "cbcdc3454efb96ad6c732b0c0b9faf43"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha (another copy)/minhapasta (copy)/outrapasta/.r4n50mw4r3-d373c70r.txt",
+        "hash": "6d9acabe447b75ed32501259171b41d4"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha (another copy)/minhapastinha/.r4n50mw4r3-d373c70r.txt",
+        "hash": "7613aac73d259eeead4adcb35b4a288a"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha (another copy)/minhapasta (another copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "df7a3b3226dee9ef8f83d317b5cf76e0"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha (another copy)/minhapasta (another copy)/outrapasta/.r4n50mw4r3-d373c70r.txt",
+        "hash": "12a169d43b0a75295350e186596a6b9c"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha (copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "43b32a6ec7a36492126373cbe0399cca"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha (copy)/minhapastinha (3rd copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "ad855086847deaad992544a2a12b705d"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha (copy)/minhapastinha (another copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "97845a3255634aad8dd83880f649f27a"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha (copy)/minhapastinha (copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "ad2f70d0a66d7b0b009a7f0d9a811c67"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha (copy)/minhapasta (3rd copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "93b93f7282211d739d0e138a02f4f330"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha (copy)/minhapasta (3rd copy)/outrapasta/.r4n50mw4r3-d373c70r.txt",
+        "hash": "df1d871d0d9a662ae113de795f56447d"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha (copy)/minhapasta (copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "d490287958b1eb6c56747e9aabe361b5"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha (copy)/minhapasta (copy)/outrapasta/.r4n50mw4r3-d373c70r.txt",
+        "hash": "feabcfedcbf9205fc82bf0215af666c5"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha (copy)/minhapastinha/.r4n50mw4r3-d373c70r.txt",
+        "hash": "aa41ed5958c3fd65c757d9edead09b49"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha (copy)/minhapasta (another copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "340a62b3c9a7ebb1ba5c8752e0ee5704"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha (copy)/minhapasta (another copy)/outrapasta/.r4n50mw4r3-d373c70r.txt",
+        "hash": "834c1f3301936a9fcc2e9612a6e29942"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta (3rd copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "628fc90f4cf80ebf1623ec2355c8dcb3"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta (3rd copy)/minhapastinha (3rd copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "875e7619451c4ad7b02dc6bdefd8a509"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta (3rd copy)/minhapastinha (another copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "d6222aa8cf6cb96e21cf30025d0f0a69"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta (3rd copy)/minhapastinha (copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "52a24c00da2c06428eb5d6daf7c82246"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta (3rd copy)/minhapasta (3rd copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "bec4003879494d5169702622525bdc82"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta (3rd copy)/minhapasta (3rd copy)/outrapasta/.r4n50mw4r3-d373c70r.txt",
+        "hash": "3e0162a57a1900a487a961345aab0e01"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta (3rd copy)/minhapasta (copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "8e28944ebf4c9b24e3bbf34f8fb2c3e6"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta (3rd copy)/minhapasta (copy)/outrapasta/.r4n50mw4r3-d373c70r.txt",
+        "hash": "c47d071355026a60bd8101f5ba8be4cf"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta (3rd copy)/minhapastinha/.r4n50mw4r3-d373c70r.txt",
+        "hash": "4f22d5344ccb62439fbd970d388b5aba"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta (3rd copy)/minhapasta (another copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "e262bb3160ebb2e0e72767d876797fb8"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta (3rd copy)/minhapasta (another copy)/outrapasta/.r4n50mw4r3-d373c70r.txt",
+        "hash": "1df4472b8b716c728bf5492881737000"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta (3rd copy)/outrapasta/.r4n50mw4r3-d373c70r.txt",
+        "hash": "3153a66caefd5cc5e9fc0b01dbab34b3"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta (copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "bef97d5881babb46c98008e6bad60f55"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta (copy)/minhapastinha (3rd copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "6273e191cf04d79b6132e12bf743c89c"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta (copy)/minhapastinha (another copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "f87d9adfd54acc799bdd2685e35034bf"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta (copy)/minhapastinha (copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "95f85e6e2096a18073ac6e991e30bba9"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta (copy)/minhapasta (3rd copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "cb3a5cea48ecda71eea36c18fafbcb96"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta (copy)/minhapasta (3rd copy)/outrapasta/.r4n50mw4r3-d373c70r.txt",
+        "hash": "e9619c71b154eac8e28fcc1ef57825a8"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta (copy)/minhapasta (copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "0f65d1a4b9141de83fe36f56b991fb95"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta (copy)/minhapasta (copy)/outrapasta/.r4n50mw4r3-d373c70r.txt",
+        "hash": "e79431e61689d4d139d640dd7f405493"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta (copy)/minhapastinha/.r4n50mw4r3-d373c70r.txt",
+        "hash": "1dda4bc5e3bc2d6f10b4348e7f1eb80a"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta (copy)/minhapasta (another copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "cbf0dbe236338f694ee6dcb27c414c3b"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta (copy)/minhapasta (another copy)/outrapasta/.r4n50mw4r3-d373c70r.txt",
+        "hash": "c131044c828c2ea48a2a65c7cda2448e"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta (copy)/outrapasta/.r4n50mw4r3-d373c70r.txt",
+        "hash": "74065f52f365bc7d1f09c591eef986d7"
     },
     {
         "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha/.r4n50mw4r3-d373c70r.txt",
-        "hash": "7dcf6684d24d8a34696fdf16c442457d"
+        "hash": "aa1bb31bd6d82434a91ae840888de769"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha/minhapastinha (3rd copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "cbb51453dc4324d0a8e651ed8c390ca5"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha/minhapastinha (another copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "cad2a1414eb618305bc4bd55486a6bc1"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha/minhapastinha (copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "74a9bfc5c97e175f0a0e4bf35255016c"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha/minhapasta (3rd copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "cd2c964404109f16f7d4659ce43691fd"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha/minhapasta (3rd copy)/outrapasta/.r4n50mw4r3-d373c70r.txt",
+        "hash": "fa42c0b8e9d984eddf9734137ef0fad0"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha/minhapasta (copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "65ba187cf0a4db5a693c488c9352bfbd"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha/minhapasta (copy)/outrapasta/.r4n50mw4r3-d373c70r.txt",
+        "hash": "8eea0920ca67f38fba1fb39bce4528ae"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha/minhapastinha/.r4n50mw4r3-d373c70r.txt",
+        "hash": "fbbf12127b706dcc435ca1ade47ded76"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha/minhapasta (another copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "4a2100cb7bb97b5fd401fc6950d28bbb"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapastinha/minhapasta (another copy)/outrapasta/.r4n50mw4r3-d373c70r.txt",
+        "hash": "0d429ef75603eae6241c0f23424163f0"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta (another copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "48cc1c6e0a8d19648a59e8a19e94340b"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta (another copy)/minhapastinha (3rd copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "30069232bc12ddada33e4ea521b03ae3"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta (another copy)/minhapastinha (another copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "93c20899294949e08d1c1022ce849cd8"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta (another copy)/minhapastinha (copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "b01596716b92140c511caffd63a9b1f1"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta (another copy)/minhapasta (3rd copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "3ae8417ef7f7a0bb37204ae683739bb4"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta (another copy)/minhapasta (3rd copy)/outrapasta/.r4n50mw4r3-d373c70r.txt",
+        "hash": "8c5ab05176165da16479a4408c0c4918"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta (another copy)/minhapasta (copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "e86cd7499a453a9197f03cf92a194eb6"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta (another copy)/minhapasta (copy)/outrapasta/.r4n50mw4r3-d373c70r.txt",
+        "hash": "b941204ba4476b3bc560740ca0bc3b2d"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta (another copy)/minhapastinha/.r4n50mw4r3-d373c70r.txt",
+        "hash": "42dbacffcbe62adac3a95415a7b953c8"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta (another copy)/minhapasta (another copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "18ee08c6c911e2456309785c42ed8c09"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta (another copy)/minhapasta (another copy)/outrapasta/.r4n50mw4r3-d373c70r.txt",
+        "hash": "f5963f8d695dbc7b3ccda4412708450b"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta (another copy)/outrapasta/.r4n50mw4r3-d373c70r.txt",
+        "hash": "95d207bf7fae563d69a1bfc57fedd435"
     },
     {
         "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta/.r4n50mw4r3-d373c70r.txt",
-        "hash": "f0c2abb2c09cd32a86ef3e072238c20d"
+        "hash": "f2efea2e6ec9a82e4503d3404efdcf5b"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta/minhapastinha (3rd copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "c2251b3834cb63bb1440b57c74308bbf"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta/minhapastinha (another copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "1981d1204fad3cf1ee2f113045aae079"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta/minhapastinha (copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "2f284e8423d58c2e4638f1da86bfb2be"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta/minhapasta (3rd copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "f3a0fd2c57dd38ab878e8904bbdc649d"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta/minhapasta (3rd copy)/outrapasta/.r4n50mw4r3-d373c70r.txt",
+        "hash": "c8e74d6295707b72b2e02d565ece2061"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta/minhapasta (copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "ca9c9946b2723095344b0e1960c8cd77"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta/minhapasta (copy)/outrapasta/.r4n50mw4r3-d373c70r.txt",
+        "hash": "cf95e6d603f482a6c11a35597d32cdaf"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta/minhapastinha/.r4n50mw4r3-d373c70r.txt",
+        "hash": "541c5704ae22486129c693b150337519"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta/minhapasta (another copy)/.r4n50mw4r3-d373c70r.txt",
+        "hash": "87d76f7f3a8a1d812cada5e10f932eb5"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta/minhapasta (another copy)/outrapasta/.r4n50mw4r3-d373c70r.txt",
+        "hash": "de664f13b44124f92913fb3f24f53650"
     },
     {
         "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/minhapasta/outrapasta/.r4n50mw4r3-d373c70r.txt",
-        "hash": "e6a49ae5f813a3cf01e25898d9cbfea8"
+        "hash": "495316e6a909d3790e7c1a1716ebe38a"
     }
 ]

@@ -1,0 +1,62 @@
+AUDITD CONFIG
+sudo nano /etc/audit/auditd.conf
+
+AUDITD RULES (para deixar as regras permanentes, elas precisam ficar neste arquivo)
+/etc/audit/rules.d/audit.rules
+
+
+type=SYSCALL msg=audit(1434371271.277:135496): arch=c000003e syscall=2 success=yes exit=3 a0=7fff0054e929 a1=0 a2=1fffffffffff0000 a3=7fff0054c390 items=1 ppid=6265 pid=6266 auid=1000 uid=0 gid=0 euid=0 suid=0 fsuid=0 egid=0 sgid=0 fsgid=0 tty=pts0 ses=113 comm="cat" exe="/usr/bin/cat" key="sshconfigchange"
+
+SYSCALL
+pegar o PID do SYSCALL + key definida na rule
+msg=audit(time_stamp:ID) = msg=audit(1434371271.277:135496)
+pegar a syscall equivalente a escrever no arquivo (1) > sudo ausyscall n
+pegar o ppid (parent pid) e o pid
+pegar o auid e o uid para saber quem foi que fez as mudanças. Se for usuário desconhecido = deletar
+
+CWD
+pegar o diretório do qual o Ransomware está trabalhando
+
+PATH
+pegar o name que aponta para o honeypot
+
+arquivos acessados e usernames
+sudo aureport -f -i
+
+checar estado atual do audit, ver o PID etc
+sudo auditctl -s
+
+ver todas as regras criadas
+sudo auditctl -l
+
+criar uma regra
+auditctl -w path_to_file -p permissions -k key_name
+
+auditctl -w /home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/.r4n50mw4r3-d373c70r.txt -p wa -k ransomware-detector-key
+
+ausearch -k ransomware-detector-key <<< para pegar os logs da key 
+ausearch -k ransomware-detector-key | aureport -f -i
+
+echo "-D" > /etc/audit/rules.d/my.rules
+auditctl -l >> /etc/audit/rules.d/my.rules
+
+pegar todos os logs de uma key
+sudo ausearch -k hosts_file_change
+
+pegar systemcalls
+auditctl -a action,filter -S system_call -F field=value -k key_name`
+
+ver codigos das syscalls
+sudo ausyscall --dump
+
+misc
+auditctl -e 0 - desativar audit
+auditctl -e 1 - permitir config
+auditctl -e 2 - configs imutaveis
+
+
+criar um arquivo com custom rules - o comando abaixo é só p ler elas
+auditctl -R /usr/share/audit/sample-rules/30-stig.rules
+
+passar as rules para o arquivo q torna elas permanentes
+

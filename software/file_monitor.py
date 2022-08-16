@@ -1,13 +1,21 @@
-# TODO MONITORAR O TAMANHO DOS ARQUIVOS, OS BYTES MODIFICADOS PARA CHECAR SE ESTÃO CRIPTOGRAFADOS, A QUANTIDADE DE MODIFICAÇÕES POR SEGUNDO (SE É SUSPEITA), A EXTENSÃO DO ARQUIVO, FAZER UM BACKUP DO ARQUIVO ANTES DELE SER MODIFICADO
+# TODO
+# MONITORAR O TAMANHO DOS ARQUIVOS (SE VÁRIOS ARQUIVOS ESTÃO FICANDO MAIORES EM UM CURTO PERÍODO DE TEMPO)
+# CHECAR OS BYTES MODIFICADOS PARA CHECAR SE ESTÃO CRIPTOGRAFADOS
+# MONITORAR A QUANTIDADE DE MODIFICAÇÕES POR SEGUNDO NO TAMANHO DOS ARQUIVOS OU NOS HONEYPOTS
+# MONITORAR SE ALGUM ARQUIVO MODIFICADO POSSUI UMA EXTENSÃO SUSPEITA/DESCONHECIDA
+# ALGUMA FORMA DE REALIZAR BACKUP DOS ARQUIVOS/SISTEMA/REGISTRO ETC
+# CRIAR NOVOS HONEYPOTS PARA NOVOS DIRETÓRIOS
+# ATUALIZAR JSON QUANDO ARQUIVOS HONEYPOT SÃO MOVIDOS
 
+from datetime import datetime
 import hashlib
 import json
 import os
 import signal
-import subprocess
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 import logging
+import audit
 
 
 # Classe FileSystemModifications, que herda a classe FileSystemEventHandler do watchdog
@@ -26,10 +34,10 @@ class FileMonitor:
             self.path_to_config_folder = data[2]
             self.json_file_name = data[3]
 
+        # Monitorar modificações nos honeypots
         def on_modified(self, event):
             if self.honeypot_file_name in event.src_path:
                 try:
-                    pids_in_honeypot = subprocess.check_output(["fuser", "-u", event.src_path], stderr=subprocess.DEVNULL).decode().strip().replace(" ", ",").split(",")
                     for dict in json_file_hashes:
                         if event.src_path == dict['absolute_path']:
                             with open(event.src_path, 'rb') as honeypot_file:
@@ -39,17 +47,25 @@ class FileMonitor:
                                     logger.debug(f"Honeypot in {event.src_path} was modified!")
                                     try:
                                         file_monitor_pid = os.getpid()
-                                        for pid in pids_in_honeypot:
-                                            if str(pid) != str(file_monitor_pid):
-                                                logger.debug(f"The Ransomware process PID is: {pid}")
-                                                #os.kill(int(pid), signal.SIGKILL)
-                                                logger.debug(f"Ransomware with process PID {pid} was killed!")
+                                        ransomware_pid = audit.getAuditRuleReport(event.src_path, "pid")
+                                        if str(ransomware_pid) != str(file_monitor_pid):
+                                            logger.debug(f"The Ransomware process PID is: {ransomware_pid}")
+                                            os.kill(int(ransomware_pid), signal.SIGKILL)
+                                            logger.debug(f"Ransomware with process PID {ransomware_pid} was killed!")
                                     except Exception as e:
-                                        logger.error(f'{str(e.__class__.__name__)}')
+                                        logger.error(e)
                                         continue
                 except Exception as e:
-                    logger.error("The fuser command returned nothing.")
+                    logger.error(str(e.__class__.__name__))
                     pass
+
+        # Monitorar caso algum diretório seja mudado de lugar, para atualizar o JSON dos honeypots
+        def on_moved(self, event):
+            logger.debug("Moved " + event.src_path)
+
+        # Monitorar se algum diretório for deletado, para remover as entradas dos mesmos no JSON dos honeypots
+        def on_deleted(self, event):
+            logger.debug("Deleted " + event.src_path)
 
     def run(self):
         global observers
