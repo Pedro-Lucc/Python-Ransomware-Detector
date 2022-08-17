@@ -15,7 +15,7 @@ from signal import SIGKILL
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 import logging
-import audit
+from audit import Audit
 
 
 # Classe FileSystemModifications, que herda a classe FileSystemEventHandler do watchdog
@@ -44,18 +44,16 @@ class FileMonitor:
                                 file_data = honeypot_file.read()
                                 current_hash = hashlib.md5(file_data).hexdigest()
                                 if current_hash != dict['hash']:
-                                    logger.debug(f"Honeypot in {event.src_path} was modified!")
-                                    file_monitor_pid = os.getpid()
-                                    ransomware_pid = audit.getAuditRuleReport(event.src_path, "pid")
-                                    print(ransomware_pid)
-                                    if str(ransomware_pid) != str(file_monitor_pid):
-                                        if ransomware_pid != None:
-                                            logger.debug(f"The Ransomware process PID is: {ransomware_pid}")
-                                            os.kill(int(ransomware_pid), SIGKILL)
-                                            logger.debug(f"Ransomware with process PID {ransomware_pid} was killed!")
+                                    logger.warning(f"Honeypot in {event.src_path} was modified!")
+                                    ransomware_pid = audit.getAuditRuleReport("pid")
+                                    logger.warning(f"Proabable Ransomware process with PID: {ransomware_pid}")
+                                    # Software conseguindo para o Ransomware após em média 70.85Mb de arquivos .txt serem criptografados
+                                    if ransomware_pid != None:
+                                        os.kill(int(ransomware_pid), SIGKILL)
+                                        logger.warning(f"Proabable Ransomware process with PID {ransomware_pid} was killed!")
 
                 except Exception as e:
-                    logger.error(str(e.__class__.__name__))
+                    logger.error(e)
                     pass
 
         # Monitorar caso algum diretório seja mudado de lugar, para atualizar o JSON dos honeypots
@@ -108,6 +106,12 @@ if __name__ == "__main__":
         honeypot_file_name=".r4n50mw4r3-d373c70r.txt",
         path_to_config_folder="/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/software/config",
         json_file_name="ransom-detector-hashes-list.json"
+    )
+    audit = Audit(
+        path_to_audit="/etc/audit",
+        path_to_audit_custom_rule_file="/etc/audit/rules.d/ransomware-detector.rules",
+        path_to_audit_config="/etc/audit/auditd.conf",
+        audit_custom_rules_key="ransomware-detector-key"
     )
     fm.run()
 else:

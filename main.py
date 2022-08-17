@@ -4,9 +4,7 @@ import subprocess
 from software.honeypot_generator import HoneypotGenerator
 from software.file_monitor import FileMonitor
 from software.logger import logger
-
-otp = subprocess.check_output(["locate", "audit/auditd.conf"]).decode()
-
+from software.audit import Audit
 
 # CONSTANTS
 # SOFTWARE
@@ -29,6 +27,14 @@ json_file_name = "ransom-detector-hashes-list.json"
 
 # MAIN
 logger.debug("Starting Ransomware Detector")
+
+# AUDIT CONFIG
+audit = Audit(
+    path_to_audit=PATH_TO_AUDIT,
+    path_to_audit_custom_rule_file=PATH_TO_AUDIT_CUSTOM_RULE_FILE,
+    path_to_audit_config=PATH_TO_AUDIT_CONFIG,
+    audit_custom_rules_key=AUDIT_CUSTOM_RULES_KEY
+)
 
 # HONEYPOT GENERATOR
 honeypot_generator = HoneypotGenerator(
