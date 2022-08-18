@@ -11,32 +11,37 @@ from datetime import datetime
 import hashlib
 import json
 import os
+import re
 from signal import SIGKILL
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 import logging
-from audit import Audit
+from software.audit import Audit
+from software.logger import logger
 
 
 # Classe FileSystemModifications, que herda a classe FileSystemEventHandler do watchdog
 # event.src_path é basicamente o caminho que o handler retorna
 class FileMonitor:
-    def __init__(self, directory_list, honeypot_file_name, path_to_config_folder, json_file_name):
+    def __init__(self, directory_list, honeypot_file_name, path_to_config_folder, json_file_name, honeypot_names_file, audit_obj):
         self.directory_list = directory_list
         self.honeypot_file_name = honeypot_file_name
         self.path_to_config_folder = path_to_config_folder
         self.json_file_name = json_file_name
+        self.honeypot_names_file = honeypot_names_file
+        self.audit_obj = audit_obj
 
     class EventHandler(FileSystemEventHandler):
         def __init__(self, data):
             self.directory_list = data[0]
             self.honeypot_file_name = data[1]
             self.path_to_config_folder = data[2]
-            self.json_file_name = data[3]
+            self.json_file_name = data[3],
+            self.audit_obj = data[4]
 
         # Monitorar modificações nos honeypots
         def on_modified(self, event):
-            if self.honeypot_file_name in event.src_path:
+            if re.findall("([^\/]+$)", event.src_path)[0] in honeypot_names_data:
                 try:
                     for dict in json_file_hashes:
                         if event.src_path == dict['absolute_path']:
@@ -45,12 +50,12 @@ class FileMonitor:
                                 current_hash = hashlib.md5(file_data).hexdigest()
                                 if current_hash != dict['hash']:
                                     logger.warning(f"Honeypot in {event.src_path} was modified!")
-                                    ransomware_pid = audit.getAuditRuleReport("pid")
-                                    logger.warning(f"Proabable Ransomware process with PID: {ransomware_pid}")
+                                    ransomware_pid = self.audit_obj.getAuditRuleReport("pid")
+                                    logger.critical(f"Proabable Ransomware process with PID: {ransomware_pid}")
                                     # Software conseguindo para o Ransomware após em média 70.85Mb de arquivos .txt serem criptografados
                                     if ransomware_pid != None:
                                         os.kill(int(ransomware_pid), SIGKILL)
-                                        logger.warning(f"Proabable Ransomware process with PID {ransomware_pid} was killed!")
+                                        logger.critical(f"Proabable Ransomware process with PID {ransomware_pid} was killed!")
 
                 except Exception as e:
                     logger.error(e)
@@ -68,7 +73,7 @@ class FileMonitor:
         global observers
         observers = []
         observer = Observer()
-        event_handler = self.EventHandler([self.directory_list, self.honeypot_file_name, self.path_to_config_folder, self.json_file_name])
+        event_handler = self.EventHandler([self.directory_list, self.honeypot_file_name, self.path_to_config_folder, self.json_file_name, self.audit_obj])
 
         for directory in self.directory_list:
             # Criação do observer
@@ -79,15 +84,31 @@ class FileMonitor:
         observer.start()
 
         global json_file_hashes
+        global honeypot_names_data
+        honeypot_names_data = []
         json_file_path = os.path.join(self.path_to_config_folder, self.json_file_name)
+        # input()
+        honeypot_names_path = os.path.join(self.path_to_config_folder, self.honeypot_names_file)
         if os.path.exists(self.path_to_config_folder):
             try:
-                with open(os.path.join(json_file_path)) as json_file:
+                with open(json_file_path) as json_file:
                     json_file_hashes = json.load(json_file)
             except FileNotFoundError:
                 logger.error(f'Could not find {self.json_file_name} in {self.path_to_config_folder}')
                 quit()
+            try:
+                with open(honeypot_names_path, "r") as names_file:
+                    for line in names_file:
+                        honeypot_names_data.append(line.rstrip())
+            except FileNotFoundError:
+                logger.error(f'Could not find {names_file} in {self.path_to_config_folder}')
+                quit()
 
+        else:
+            logger.error(f'Could not find {self.json_file_name} in {self.path_to_config_folder}')
+            quit()
+
+        logger.debug('File Monitor has started...')
         try:
             while True:
                 continue
@@ -98,6 +119,7 @@ class FileMonitor:
                 observer.join()
 
 
+# MAIN
 if __name__ == "__main__":
     from logger import logger
     logging.getLogger("watchdog.observers.inotify_buffer").disabled = True
@@ -116,3 +138,4 @@ if __name__ == "__main__":
     fm.run()
 else:
     from software.logger import logger
+    logging.getLogger("watchdog.observers.inotify_buffer").disabled = True

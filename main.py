@@ -20,9 +20,21 @@ PATH_TO_AUDIT = os.path.join(PATH_TO_AUDIT_CONFIG.rsplit('/', 1)[0])
 PATH_TO_AUDIT_CUSTOM_RULE_FILE = os.path.join(PATH_TO_AUDIT, "rules.d", AUDIT_CUSTOM_RULES_FILE_NAME)
 
 # VARIABLES
+# PATHS TO MONITOR
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - FOR TEST
+paths_to_monitor_or_generate_honeypot = []
+maindir = "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test"
+for current_path, dirs, _ in os.walk(maindir):
+    for dir in dirs:
+        paths_to_monitor_or_generate_honeypot.append(os.path.join(maindir, dir))
 paths_to_monitor_or_generate_honeypot = ["/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test"]
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - FOR TEST
+
+
 honeypot_file_name = ".r4n50mw4r3-d373c70r.txt"
 json_file_name = "ransom-detector-hashes-list.json"
+honeypot_names_file = "honeypot-names.txt"
 
 
 # MAIN
@@ -36,15 +48,22 @@ audit = Audit(
     audit_custom_rules_key=AUDIT_CUSTOM_RULES_KEY
 )
 
+audit.setStatus("on")
+
 # HONEYPOT GENERATOR
 honeypot_generator = HoneypotGenerator(
     directory_list=paths_to_monitor_or_generate_honeypot,
     honeypot_file_name=honeypot_file_name,
     path_to_config_folder=PATH_TO_CONFIG_FOLDER,
     json_file_name=json_file_name,
+    honeypot_names_file=honeypot_names_file,
+    audit_obj=audit,
     # honeypot_interval=2,
     disable_honeypot_interval=True,
-    delete=False
+    random_honeypot_file_name=False,
+    hidden_honeypot_file=True,
+    honeypot_file_extension=".txt",
+    delete=True
 )
 honeypot_generator.run()
 
@@ -54,7 +73,9 @@ if not honeypot_generator.delete:
         directory_list=paths_to_monitor_or_generate_honeypot,
         honeypot_file_name=honeypot_file_name,
         path_to_config_folder=PATH_TO_CONFIG_FOLDER,
-        json_file_name=json_file_name
+        json_file_name=json_file_name,
+        honeypot_names_file=honeypot_names_file,
+        audit_obj=audit,
     )
     file_monitor.run()
 else:

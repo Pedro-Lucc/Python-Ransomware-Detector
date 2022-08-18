@@ -30,7 +30,7 @@ class Audit:
         if not "could not be found" in str(output):
             if action == "on":
                 while True and tries < 5:
-                    if re.findall(service_active_pattern, str(output))[0] == "active":
+                    if re.findall("(?<=Active: )(.*?)(?=\ )", str(output))[0] == "active":
                         logger.debug("Auditd Service is currently active")
                         break
                     else:
@@ -41,7 +41,7 @@ class Audit:
                         output = subprocess.run(['service', 'auditd', 'status'],  capture_output=True, text=True)
                         tries += 1
             elif action == "off":
-                if re.findall(service_active_pattern, str(output))[0] == "inactive":
+                if re.findall("(?<=Active: )(.*?)(?=\ )", str(output))[0] == "inactive":
                     logger.error("Can't turn Auditd Service off. The service is already inactive")
                 else:
                     logger.debug("Turning Auditd service off...")
@@ -49,17 +49,21 @@ class Audit:
         else:
             logger.debug("Could not find Auditd service. Do you have Auditd installed?")
 
-    def defaultConfig(self):
-        logger.debug("default")
-
     def createCustomRuleFile(self):
-        print(self.path_to_custom_rule_file)
         """Função para criar o arquivo que terá as regras para cada honeypot"""
         if os.path.exists(self.path_to_custom_rule_file):
             os.remove(self.path_to_custom_rule_file)
 
         with open(self.path_to_custom_rule_file, "w") as custom_rule_file:
             custom_rule_file.write("-D\n")
+
+    def deleteCustomRuleFileAndRules(self):
+        """Função para criar o arquivo que terá as regras para cada honeypot"""
+        if os.path.exists(self.path_to_custom_rule_file):
+            os.remove(self.path_to_custom_rule_file)
+        else:
+            logger.error("There is not custom rule file in the directory.")
+            subprocess.run(["auditctl", "-D"], capture_output=False)
 
     def createAuditRule(self, path_to_honeypot_file):
         """"""
@@ -71,7 +75,7 @@ class Audit:
         with open(self.path_to_custom_rule_file) as custom_rule_file:
             for rule in custom_rule_file:
                 os.system("auditctl " + rule)
-                # subprocess.run(['auditctl ', rule], shell=True)
+                #subprocess.run(['auditctl', rule], shell=True, capture_output=False)
 
     def getAuditRuleReport(self, action):
         """Função para pegar os reports associados a key do Ransomware e retornar alguma informação"""
@@ -89,6 +93,7 @@ class Audit:
             print(e)
 
 
+# MAIN
 if __name__ == "__main__":
     from logger import logger
     # VAR
@@ -114,6 +119,6 @@ if __name__ == "__main__":
     )
     audit.setStatus("on")
 else:
-    from logger import logger
+    from software.logger import logger
 
 # [0].split(":")[1] - get only ID
