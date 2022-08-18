@@ -3,4 +3,6 @@ __pycache__/
 tempCodeRunnerFile.py
 .idea/
 env/
+.vscode
 .vscode/
+log_performance.txt
