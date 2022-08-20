@@ -125,21 +125,7 @@ class FileMonitor:
 
 # MAIN
 if __name__ == "__main__":
-    from logger import logger
-    logging.getLogger("watchdog.observers.inotify_buffer").disabled = True
-    fm = FileMonitor(
-        directory_list=["/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test"],
-        honeypot_file_name=".r4n50mw4r3-d373c70r.txt",
-        path_to_config_folder="/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/software/config",
-        json_file_name="ransom-detector-hashes-list.json"
-    )
-    audit = Audit(
-        path_to_audit="/etc/audit",
-        path_to_audit_custom_rule_file="/etc/audit/rules.d/ransomware-detector.rules",
-        path_to_audit_config="/etc/audit/auditd.conf",
-        audit_custom_rules_key="ransomware-detector-key"
-    )
-    fm.run()
+    pass
 else:
     from software.logger import logger
     logging.getLogger("watchdog.observers.inotify_buffer").disabled = True

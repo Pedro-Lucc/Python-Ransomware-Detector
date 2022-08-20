@@ -23,10 +23,7 @@ PATH_TO_AUDIT_CUSTOM_RULE_FILE = os.path.join(PATH_TO_AUDIT, "rules.d", AUDIT_CU
 # PATHS TO MONITOR
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - FOR TEST
 paths_to_monitor_or_generate_honeypot = []
-paths_to_monitor_or_generate_honeypot = [
-    "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/folder1",
-    "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/folder2",
-    "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/folder3"]
+paths_to_monitor_or_generate_honeypot = ["/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test"]
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - FOR TEST
 

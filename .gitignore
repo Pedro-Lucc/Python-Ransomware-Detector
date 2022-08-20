@@ -6,3 +6,5 @@ env/
 .vscode
 .vscode/
 log_performance.txt
+test/
+api/

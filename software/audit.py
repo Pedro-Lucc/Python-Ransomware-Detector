@@ -95,30 +95,6 @@ class Audit:
 
 # MAIN
 if __name__ == "__main__":
-    from logger import logger
-    # VAR
-    ppid_pid_pattern = "(?<=pid=)(.*?)(?=\ )"
-    time_and_id_pattern = "(?<=msg=audit\()(.*)(?=\):)"
-    time_pattern = "(?<=msg=audit\()(.*)(?=:\d)"
-    type_pattern = "(?<=type=)(.*?)(?= )"
-    path_pattern = '(?<=name=")(.*?)(?=" )'
-    service_active_pattern = "(?<=Active: )(.*?)(?=\ )"
-    AUDIT_CUSTOM_RULES_FILE_NAME = "ransomware-detector.rules"
-    AUDIT_CUSTOM_RULES_KEY = "ransomware-detector-key"
-    PATH_TO_AUDIT_CONFIG = subprocess.check_output(["locate", "audit/auditd.conf"]).decode()
-    PATH_TO_AUDIT = os.path.join(PATH_TO_AUDIT_CONFIG.rsplit('/', 1)[0])
-    PATH_TO_AUDIT_CUSTOM_RULE_FILE = os.path.join(PATH_TO_AUDIT, "rules.d", AUDIT_CUSTOM_RULES_FILE_NAME)
-
-    # SOFTWARE
-    # createCustomRuleFile("/etc/audit/rules.d/ransomware-detector.rules")
-    audit = Audit(
-        path_to_audit=PATH_TO_AUDIT,
-        path_to_audit_custom_rule_file=PATH_TO_AUDIT_CUSTOM_RULE_FILE,
-        path_to_audit_config=PATH_TO_AUDIT_CONFIG,
-        audit_custom_rules_key=AUDIT_CUSTOM_RULES_KEY
-    )
-    audit.setStatus("on")
+    pass
 else:
     from software.logger import logger
-
-# [0].split(":")[1] - get only ID
