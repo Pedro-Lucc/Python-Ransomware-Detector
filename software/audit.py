@@ -66,7 +66,7 @@ class Audit:
             subprocess.run(["auditctl", "-D"], capture_output=False)
 
     def createAuditRule(self, path_to_honeypot_file):
-        """"""
+        """Função para criar uma regra de auditoria"""
         with open(self.path_to_custom_rule_file, "a") as custom_rule_file:
             custom_rule_file.write(f'-w "{path_to_honeypot_file}" -p wa -k {self.audit_custom_rules_key}\n')
 

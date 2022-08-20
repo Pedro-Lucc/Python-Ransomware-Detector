@@ -36,17 +36,19 @@ class HoneypotGenerator:
             logger.error("Honeypot interval should be 2 or greater!")
             quit()
 
-    def calcPercentage(self, directory_count, counter, porcentage):
+    def calcPercentage(self, directory_count, counter):
+        """Função para calcular a regra de 3"""
         v1 = directory_count  # numero de 100%
         v2 = 100  # 100%
         v3 = counter  # número a descobrir a porcentagem
         return v3 * v2 / v1
 
     def returnPercentage(self, directory_count, counter, porcentage):
+        """Função para retornar a porcentagem"""
         for i in range(100):
             counter = round(counter + 0.01, 2)
             if counter == round(directory_count * porcentage, 2):
-                logger.debug(f"Working on deleting honeypots: {round(self.calcPercentage(directory_count, counter, porcentage))}%")
+                logger.debug(f"Working on {'deleting' if self.delete else 'creating'} honeypots: {round(self.calcPercentage(directory_count, counter))}%")
                 porcentage = round(porcentage + 0.1, 2)
         return counter, porcentage
 
@@ -89,8 +91,11 @@ class HoneypotGenerator:
             logger.debug(f"Creating honeypots in: {directory}")
             logger.debug(f"There are {directory_count} subdirectories inside {directory}")
             logger.debug(f"The honeypot creation interval is set to: {self.honeypot_interval if not self.disable_honeypot_interval else 'disabled'}")
+            if directory_count == 0:
+                directory_count = 1
             logger.debug(f"It will be created {round(directory_count / self.honeypot_interval) if not self.disable_honeypot_interval else directory_count} honeypots")
             percentage = 0.1
+            created_count = 0
             for current_path, _, _ in os.walk(directory):
                 if counter % self.honeypot_interval == 0 or counter == 0 or self.disable_honeypot_interval:
                     try:
@@ -112,10 +117,14 @@ class HoneypotGenerator:
                             # Criar a regra no audit
                             self.audit_obj.createAuditRule(os.path.join(current_path, self.honeypot_file_name))
                             counter, percentage = self.returnPercentage(directory_count, counter, percentage)
+                            created_count += 1
 
                     except Exception as e:
                         logger.error(e)
                         continue
+
+            logger.debug(f"Created a total of {round(created_count)} honeypots in {directory}")
+
         self.audit_obj.loadRules()
 
         # Gerar o JSON para os honeypot files criados e suas respectivas hashes
@@ -183,7 +192,7 @@ class HoneypotGenerator:
             if deleted_count == 0:
                 logger.debug(f"No honeypots where found to be deleted")
             else:
-                logger.debug(f"Deleted a total of {deleted_count} honeypots in {directory}")
+                logger.debug(f"Deleted a total of {round(deleted_count)} honeypots in {directory}")
 
         # Deletar o arquivo e as regras de audit
         self.audit_obj.deleteCustomRuleFileAndRules()
@@ -203,13 +212,13 @@ class HoneypotGenerator:
                 quit()
 
     def __deleteHoneypotNamesList(self):
+        """Função para deletar o arquivo com os nomes dos honeypots"""
         if os.path.exists(self.path_to_config_folder):
             try:
                 os.remove(os.path.join(self.path_to_config_folder, self.honeypot_names_file))
             except FileNotFoundError:
                 logger.error(f'Could not find {self.honeypot_names_file} in {self.path_to_config_folder}')
 
-    # Atualizar o json caso haja alguma mudança
     def updateJson(self):
         """Função para atualizar o JSON, modificando as entradas de cada honeypot afetado"""
         print("atualizar o json")

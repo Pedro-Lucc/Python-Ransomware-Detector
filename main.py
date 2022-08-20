@@ -23,11 +23,10 @@ PATH_TO_AUDIT_CUSTOM_RULE_FILE = os.path.join(PATH_TO_AUDIT, "rules.d", AUDIT_CU
 # PATHS TO MONITOR
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - FOR TEST
 paths_to_monitor_or_generate_honeypot = []
-maindir = "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test"
-for current_path, dirs, _ in os.walk(maindir):
-    for dir in dirs:
-        paths_to_monitor_or_generate_honeypot.append(os.path.join(maindir, dir))
-paths_to_monitor_or_generate_honeypot = ["/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test"]
+paths_to_monitor_or_generate_honeypot = [
+    "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/folder1",
+    "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/folder2",
+    "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-samples/encrypt-test/folder3"]
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - FOR TEST
 
@@ -60,7 +59,7 @@ honeypot_generator = HoneypotGenerator(
     audit_obj=audit,
     # honeypot_interval=2,
     disable_honeypot_interval=True,
-    random_honeypot_file_name=True,
+    random_honeypot_file_name=False,
     hidden_honeypot_file=True,
     honeypot_file_extension=".txt",
     delete=True

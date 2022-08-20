@@ -7,7 +7,6 @@
 # CRIAR NOVOS HONEYPOTS PARA NOVOS DIRETÓRIOS
 # ATUALIZAR JSON QUANDO ARQUIVOS HONEYPOT SÃO MOVIDOS
 
-from datetime import datetime
 import hashlib
 import json
 import os
@@ -18,6 +17,7 @@ from watchdog.events import FileSystemEventHandler
 import logging
 from software.audit import Audit
 from software.logger import logger
+import time
 
 
 # Classe FileSystemModifications, que herda a classe FileSystemEventHandler do watchdog
@@ -42,6 +42,7 @@ class FileMonitor:
         # Monitorar modificações nos honeypots
         def on_modified(self, event):
             if re.findall("([^\/]+$)", event.src_path)[0] in honeypot_names_data:
+                start = time.perf_counter()
                 try:
                     for dict in json_file_hashes:
                         if event.src_path == dict['absolute_path']:
@@ -52,13 +53,15 @@ class FileMonitor:
                                     logger.warning(f"Honeypot in {event.src_path} was modified!")
                                     ransomware_pid = self.audit_obj.getAuditRuleReport("pid")
                                     logger.critical(f"Proabable Ransomware process with PID: {ransomware_pid}")
-                                    # Software conseguindo para o Ransomware após em média 70.85Mb de arquivos .txt serem criptografados
                                     if ransomware_pid != None:
                                         os.kill(int(ransomware_pid), SIGKILL)
-                                        logger.critical(f"Proabable Ransomware process with PID {ransomware_pid} was killed!")
+                                        end = time.perf_counter()
+                                        logger.critical(f"Proabable Ransomware process with PID {ransomware_pid} was killed in {round(end - start, 3)}s!")
 
                 except Exception as e:
                     logger.error(e)
+                    if "start" in globals():
+                        end = time.perf_counter()
                     pass
 
         # Monitorar caso algum diretório seja mudado de lugar, para atualizar o JSON dos honeypots
@@ -70,6 +73,7 @@ class FileMonitor:
             logger.debug("Deleted " + event.src_path)
 
     def run(self):
+        """Função para executar o file monitor"""
         global observers
         observers = []
         observer = Observer()

