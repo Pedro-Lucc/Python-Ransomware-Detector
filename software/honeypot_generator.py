@@ -81,6 +81,7 @@ class HoneypotGenerator:
         honeypot_files_hash_list = []
         honeypot_names_list = []
         counter = 0
+        total_created_count = 0
 
         self.audit_obj.createCustomRuleFile()
         for directory in self.directory_list:
@@ -124,6 +125,11 @@ class HoneypotGenerator:
                         continue
 
             logger.debug(f"Created a total of {round(created_count)} honeypots in {directory}")
+            total_created_count = total_created_count + created_count
+
+        if total_created_count == 0:
+            logger.error("No honeypots were created in any directories. Quitting...")
+            quit()
 
         self.audit_obj.loadRules()
 
