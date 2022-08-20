@@ -8,3 +8,4 @@ env/
 log_performance.txt
 test/
 api/
+cola do audit.txt
