@@ -72,21 +72,56 @@ O Ransomware utilziado para teste é um Ransomware próprio e simples com o obje
 
 ### Configuração do sistema utilizado para teste
 
-| Nome | Hardware |
-| --- | --- |
-| CPU |  AMD Ryzen 5 1600AF 3.20Ghz Stock |
-| MOBO |  Gigabyte B450M DSH3 rev. 1.0 (F50 BIOS) |
-| GPU |  ASUS Radeon RX 570 ROG Strix 4GB Stock |
-| RAM |  2x8GB Corsair Vengeance LPX DDR4 2666Mhz |
-| PSU |  Corsair CX600 |
-| SSD |  Crucial BX500 240GB |
-| HDD |  Seagate Barracuda 2TB |
-| OS |  Windows 10 Pro 64 bi |
+| **Nome** |                      | **Hardware** |
+| ------------------------------- | ---------------------------------------- |
+| CPU                             | AMD Ryzen 5 1600AF 3.20Ghz Stock |
+| MOBO                            | Gigabyte B450M DSH3 rev. 1.0 (F50 BIOS) |
+| GPU                             | ASUS Radeon RX 570 ROG Strix 4GB Stock |
+| RAM                             | 2x8GB Corsair Vengeance LPX DDR4 2666Mhz |
+| PSU                             | Corsair CX600 |
+| SSD                             | Crucial BX500 240GB |
+| HDD                             | Seagate Barracuda 2TB |
+| OS                              | Windows 10 Pro 64 bit |
 
-| **Configurações da VM no VMWare Workstation Pro 16** |
-| ---------------------------------------------------- |
-| OS                                                   | Linux Ubuntu 22.04LTS |
-| RAM                                                  | 4096MB |
-| CPUs                                                 | 2 |
-| Coresr                                               | 4 |
-| HD                                                   | 50GB |
+
+### Configurações da VM no VMWare Workstation Pro 16
+
+| **Configuração** | **Valor** |
+| ---------------- | --------------------- |
+| OS               | Linux Ubuntu 22.04LTS |
+| RAM              | 4096MB |
+| CPUs             | 2 |
+| Cores            | 4 |
+| HD               | 50GB |
+
+
+### Teste 1
+
+| **Métrica**                                                     | **Valor** |
+| --------------------------------------------------------------- |
+| Quantidade de testes realizados                                 | 20 |
+| Quantidade de diretórios sendo monitorados                      | 1 |
+| Quantidade total de subdiretórios                               | 7 |
+| Quantidade total de arquivos                                    | 300 |
+| Tamanho total                                                   | 300MB |
+| Nome aleatório de honeypot                                      | desativado |
+| Intervalo de criação de honeypots                               | desativado |
+| Quantidade de honeypots criados                                 | 7 |
+| Tempo médio de criação dos Honeypots                            | 0.005s |
+| Tempo médio de remoção dos Honeypots                            | 0.005s |
+| Tempo médio de criação de todas as regras de auditoria          | 1.034s |
+| Tempo médio de remoção de todas as regras de auditoria          | 1.01s |
+| Tempo médio de detecção e finalização do processo do Ransomware | 0.244s |
+| Quantidade de MBs criptografados                                | 31.5Mb |
+
+
+## 4. O que é planejado para futuras atualizações?
+
+- Atualizar as regras de auditoria e as entradas de honeypots quando um diretório for movido, excluído ou criado;
+- Funcionalidade para iniciar o monitor de eventos sem que seja necessário criar novos honeypots;
+- Melhorias de performance:
+  - o tempo de criação e remoção de regras de auditoria é o principal fator para demorar para criar os honeypots. Se for possível criar uma regra para arquivos com nomes X (ex: criar uma regra para todos os arquivos com nome ".ransomware-detector.txt"), o desempenho para criação e remoção dos honeypots será significativo. Na questão dos nomes aleatórios de honeypot, seria necessário criar uma regra que monitorasse arquivos com um conjunto de caracteres em seu nome (ex: um honeypot chamado ".ransom-detector-yG5qN09Lm1H" seria monitorado por uma regra como ".ransom-detector-*"). Caso não seja possível criar estas regras personalizadas citadas, a solução será através de deixar este processo mais rápido através de multiprocessing ou threading;
+  - O tempo para detectar o PID do provável Ransomware também pode acabar aumentando significativamente conforme o tamanho do arquivo de log atual do serviço de auditoria do Linux. Para resolver este impasse, a ideia é criar um arquivo de log separado de no máximo 100Kb que conterá apenas os logs que possuam a key do detector de Ransomware. Isso ainda não foi solucionado pois ainda não foi descoberto como criar arquivos de logs separados para passar todos os logs de uma respectiva key para o mesmo;
+- Impletar algum sistema de análise estática, a fim de detectar o Ransomware antes mesmo de sua execução. No momento, é considerado estudar o Yara, estudar análise de entropia e estudar uma funcionalidade para bloquear a execução de arquivos baixados em um determinado diretório;
+- Impletar um sistema de snapshot, do qual criaria uma snapshot dos diretórios monitorados, e após um incidente de Ransomware, apenas faria um roolback dos arquivos afetados pelo Ransomware;
+- Criar uma interface gráfica para tornar a configuração do software mais amigável, assim como dar uma visão mais intuitiva e prática do logs.
