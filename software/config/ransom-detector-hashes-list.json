@@ -1,0 +1,30 @@
+[
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-test/encrypt-test/.r4n50mw4r3-d373c70r.txt",
+        "hash": "3043f4d69dad52401f91399258d5ea08"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-test/encrypt-test/folder1/.r4n50mw4r3-d373c70r.txt",
+        "hash": "85bf4370ff967d51197a002e0eff8f29"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-test/encrypt-test/folder1/files/.r4n50mw4r3-d373c70r.txt",
+        "hash": "68f6f315f45e20175d358e425ce19d34"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-test/encrypt-test/folder2/.r4n50mw4r3-d373c70r.txt",
+        "hash": "94190ed80c00f58ff1dda75062fbc794"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-test/encrypt-test/folder2/files/.r4n50mw4r3-d373c70r.txt",
+        "hash": "633634b090e2aee57001ab91e3b3dbb5"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-test/encrypt-test/folder3/.r4n50mw4r3-d373c70r.txt",
+        "hash": "5a523d2fcd7c094f8d5b84275cdb0dfa"
+    },
+    {
+        "absolute_path": "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-test/encrypt-test/folder3/files/.r4n50mw4r3-d373c70r.txt",
+        "hash": "f454f55b79ea8dfe50d59c3ba803d4d1"
+    }
+]

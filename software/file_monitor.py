@@ -38,8 +38,9 @@ class FileMonitor:
             self.path_to_config_folder = data[2]
             self.json_file_name = data[3],
             self.audit_obj = data[4]
-
+            self.last_ransomware_pid = 0
         # Monitorar modificações nos honeypots
+
         def on_modified(self, event):
             if re.findall("([^\/]+$)", event.src_path)[0] in honeypot_names_data:
                 start = time.perf_counter()
@@ -52,12 +53,12 @@ class FileMonitor:
                                 if current_hash != dict['hash']:
                                     logger.warning(f"Honeypot in {event.src_path} was modified!")
                                     ransomware_pid = self.audit_obj.getAuditRuleReport("pid")
-                                    if ransomware_pid != None and ransomware_pid != last_ransomware_pid:
+                                    if ransomware_pid != None and ransomware_pid != self.last_ransomware_pid:
                                         logger.critical(f"Proabable Ransomware process with PID: {ransomware_pid}")
                                         os.kill(int(ransomware_pid), SIGKILL)
                                         end = time.perf_counter()
                                         logger.critical(f"Proabable Ransomware process with PID {ransomware_pid} was killed in {round(end - start, 3)}s!")
-                                        last_ransomware_pid = ransomware_pid
+                                        self.last_ransomware_pid = ransomware_pid
                 except ProcessLookupError:
                     logger.error(f"Could not find process with PID {ransomware_pid}. If you got a message above with a Ransomware PID, it's likely that the Ransomware process was already killed")
                     if "start" in globals():
@@ -118,9 +119,6 @@ class FileMonitor:
             quit()
 
         logger.debug('File Monitor has started...')
-        global last_ransomware_pid
-        last_ransomware_pid = 0
-
         try:
             while True:
                 continue
