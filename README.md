@@ -67,7 +67,7 @@ Todo esse processo descrito acima (do início da detecção até a morto do proc
 - **audit_obj (object):** objeto do serviço de auditoria do Linux que foi configurado previamente;
 
 ### Table test
-| Comando |
+| Comando | --- |
 | --- | --- |
 | git status | Lista de todos os arquivos modificados ou novos |
 | git diff | Mostra as diferenças do arquivo que não foram preparadas |
