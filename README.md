@@ -99,7 +99,6 @@ O Ransomware utilziado para teste é um Ransomware próprio e simples com o obje
 
 | **Métrica**                                                     | **Valor** |
 | --------------------------------------------------------------- | --------- |
-| Quantidade de testes realizados                                 | 20 |
 | Quantidade de diretórios sendo monitorados                      | 1 |
 | Quantidade total de subdiretórios                               | 7 |
 | Quantidade total de arquivos                                    | 300 |
