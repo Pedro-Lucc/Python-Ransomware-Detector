@@ -82,3 +82,11 @@ O Ransomware utilziado para teste é um Ransomware próprio e simples com o obje
 | SSD |  Crucial BX500 240GB |
 | HDD |  Seagate Barracuda 2TB |
 | OS |  Windows 10 Pro 64 bi |
+
+| **Configurações da VM no VMWare Workstation Pro 16** |
+| ---------------------------------------------------- |
+| OS                                                   | Linux Ubuntu 22.04LTS |
+| RAM                                                  | 4096MB |
+| CPUs                                                 | 2 |
+| Coresr                                               | 4 |
+| HD                                                   | 50GB |
