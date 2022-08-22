@@ -94,7 +94,7 @@ class Audit:
             rule_count = 0
             while int(rule_count) < int(created_count):
                 rule_count = subprocess.check_output([f"sudo auditctl -l -k {self.audit_custom_rules_key} | wc -l"], shell=True, stderr=subprocess.DEVNULL).decode()
-                logger.debug(f"Loaded {str(rule_count).strip()} rules, there are still {int(created_count) - int(rule_count)} to be created")
+                logger.debug(f"Loaded {str(rule_count).strip()} rules")
                 sleep(1)
 
         end = time.perf_counter()

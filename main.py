@@ -22,36 +22,18 @@ PATH_TO_AUDIT_CUSTOM_RULE_FILE = os.path.join(PATH_TO_AUDIT, "rules.d", AUDIT_CU
 # VARIABLES
 # PATHS TO MONITOR
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - FOR TEST
-paths_to_monitor_or_generate_honeypot = []
-# paths_to_monitor_or_generate_honeypot = [
-#     "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-test/encrypt-test/JavaScript1",
-#     "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-test/encrypt-test/JavaScript2",
-#     "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-test/encrypt-test/JavaScript3",
-#     "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-test/encrypt-test/JavaScript4",
-#     "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-test/encrypt-test/JavaScript5",
-#     "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-test/encrypt-test/JavaScript6",
-#     "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-test/encrypt-test/JavaScript7",
-#     "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-test/encrypt-test/JavaScript8",
-#     "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-test/encrypt-test/JavaScript9",
-#     "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-test/encrypt-test/JavaScript10",
-#     "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-test/encrypt-test/JavaScript11",
-#     "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-test/encrypt-test/JavaScript12",
-#     "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-test/encrypt-test/JavaScript13",
-#     "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-test/encrypt-test/JavaScript14",
-#     "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-test/encrypt-test/JavaScript15",
-#     "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-test/encrypt-test/JavaScript16",
-#     "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-test/encrypt-test/JavaScript17",
-#     "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-test/encrypt-test/JavaScript18",
-#     "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-test/encrypt-test/JavaScript19",
-#     "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-test/encrypt-test/JavaScript20",
-
-# ]
+paths_to_monitor_or_generate_honeypot = [
+    "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-test/encrypt-test"
+]
 
 # paths_to_monitor_or_generate_honeypot = [
-#     "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-test/encrypt-test/JavaScript1"
+#     "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-test/encrypt-test/encrypt-test1",
+#     "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-test/encrypt-test/encrypt-test2",
+#     "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-test/encrypt-test/encrypt-test3",
+#     "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-test/encrypt-test/encrypt-test4",
+#     "/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-test/encrypt-test/encrypt-test5"
 # ]
 
-paths_to_monitor_or_generate_honeypot = ["/home/matheusheidemann/Documents/Github/Python-Ransomware-Detector/ransomware-test/encrypt-test"]
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - FOR TEST
 
@@ -87,7 +69,7 @@ honeypot_generator = HoneypotGenerator(
     random_honeypot_file_name=False,
     hidden_honeypot_file=True,
     honeypot_file_extension=".txt",
-    delete=True
+    delete=False
 )
 honeypot_generator.run()
 

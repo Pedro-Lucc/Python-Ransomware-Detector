@@ -4,6 +4,7 @@
 # CRIAR NOVOS HONEYPOTS PARA NOVOS DIRETÓRIOS
 # ATUALIZAR JSON E AS REGRAS QUANDO ARQUIVOS HONEYPOT SÃO MOVIDOS OU DELETADOS
 # OPÇÃO DE GERAR ARQUIVOS OCULTOS OU NÃO PARA MAIOR SEGURANÇA
+# FUNCIONALIDADE PARA GERAR HONEYPOT APENAS NO DIRETÓRIO ROOT E NO DIRETÓRIO TOPO DA ÁRVORE
 
 import json
 import random
@@ -13,7 +14,6 @@ import hashlib
 import time
 from software.audit import Audit
 from software.logger import logger
-from multiprocessing import Pool
 
 
 class HoneypotGenerator:
@@ -103,8 +103,9 @@ class HoneypotGenerator:
             logger.debug(f"It will be created {round(directory_count / self.honeypot_interval) if not self.disable_honeypot_interval else directory_count} honeypots")
             percentage = 0.1
             created_count = 0
+            directory_walk_count = 0
             for current_path, _, _ in os.walk(directory):
-                if created_count % self.honeypot_interval == 0 or created_count == 0 or self.honeypot_interval == 1 and self.disable_honeypot_interval:
+                if directory_walk_count % self.honeypot_interval == 0 or created_count == 0 or self.honeypot_interval == 1 and self.disable_honeypot_interval:
                     try:
                         if os.access(current_path, os.W_OK):
                             if self.random_honeypot_file_name:
@@ -123,11 +124,12 @@ class HoneypotGenerator:
 
                             # Criar a regra no audit
                             self.audit_obj.createAuditRule(os.path.join(current_path, self.honeypot_file_name))
-                            created_count, percentage = self.returnPercentage(directory_count, created_count, percentage)
+                            created_count += 1
 
                     except Exception as e:
                         logger.error(e)
                         continue
+                directory_walk_count, percentage = self.returnPercentage(directory_count, directory_walk_count, percentage)
 
             logger.debug(f"Created a total of {round(created_count)} honeypots in {directory}")
             total_created_count = total_created_count + created_count
@@ -194,8 +196,10 @@ class HoneypotGenerator:
             for root in os.walk(directory):
                 directory_count += 1
 
-            deleted_count = 0
             percentage = 0.1
+            deleted_count = 0
+            directory_walk_count = 0
+
             logger.debug(f"Deleting honeypots in: {directory}")
             for current_path, _, files_in_current_path in os.walk(directory):
                 try:
@@ -204,7 +208,8 @@ class HoneypotGenerator:
                             file_absolute_path = os.path.join(current_path, file)
                             if file_absolute_path in json_paths_list:
                                 os.remove(file_absolute_path)
-                                deleted_count, percentage = self.returnPercentage(directory_count, deleted_count, percentage)
+                                deleted_count += 1
+                        directory_walk_count, percentage = self.returnPercentage(directory_count, directory_walk_count, percentage)
                 except Exception as e:
                     logger.error(e)
                     #logger.error(f'Found an error in {current_path}: {str(e.__class__.__name__)}')
