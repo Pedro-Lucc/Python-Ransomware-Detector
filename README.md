@@ -118,10 +118,15 @@ O Ransomware utilziado para teste é um Ransomware próprio e simples com o obje
 ## 4. O que é planejado para futuras atualizações?
 
 - Atualizar as regras de auditoria e as entradas de honeypots quando um diretório for movido, excluído ou criado;
+
 - Funcionalidade para iniciar o monitor de eventos sem que seja necessário criar novos honeypots;
+
 - Melhorias de performance:
   - o tempo de criação e remoção de regras de auditoria é o principal fator para demorar para criar os honeypots. Se for possível criar uma regra para arquivos com nomes X (ex: criar uma regra para todos os arquivos com nome ".ransomware-detector.txt"), o desempenho para criação e remoção dos honeypots será significativo. Na questão dos nomes aleatórios de honeypot, seria necessário criar uma regra que monitorasse arquivos com um conjunto de caracteres em seu nome (ex: um honeypot chamado ".ransom-detector-yG5qN09Lm1H" seria monitorado por uma regra como ".ransom-detector-*"). Caso não seja possível criar estas regras personalizadas citadas, a solução será através de deixar este processo mais rápido através de multiprocessing ou threading;
   - O tempo para detectar o PID do provável Ransomware também pode acabar aumentando significativamente conforme o tamanho do arquivo de log atual do serviço de auditoria do Linux. Para resolver este impasse, a ideia é criar um arquivo de log separado de no máximo 100Kb que conterá apenas os logs que possuam a key do detector de Ransomware. Isso ainda não foi solucionado pois ainda não foi descoberto como criar arquivos de logs separados para passar todos os logs de uma respectiva key para o mesmo;
+
 - Impletar algum sistema de análise estática, a fim de detectar o Ransomware antes mesmo de sua execução. No momento, é considerado estudar o Yara, estudar análise de entropia e estudar uma funcionalidade para bloquear a execução de arquivos baixados em um determinado diretório;
+
 - Impletar um sistema de snapshot, do qual criaria uma snapshot dos diretórios monitorados, e após um incidente de Ransomware, apenas faria um roolback dos arquivos afetados pelo Ransomware;
+
 - Criar uma interface gráfica para tornar a configuração do software mais amigável, assim como dar uma visão mais intuitiva e prática do logs.
