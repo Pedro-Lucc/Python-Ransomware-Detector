@@ -72,16 +72,16 @@ O Ransomware utilziado para teste é um Ransomware próprio e simples com o obje
 
 ### Configuração do sistema utilizado para teste
 
-| **Nome** |                      | **Hardware** |
-| ------------------------------- | ---------------------------------------- |
-| CPU                             | AMD Ryzen 5 1600AF 3.20Ghz Stock |
-| MOBO                            | Gigabyte B450M DSH3 rev. 1.0 (F50 BIOS) |
-| GPU                             | ASUS Radeon RX 570 ROG Strix 4GB Stock |
-| RAM                             | 2x8GB Corsair Vengeance LPX DDR4 2666Mhz |
-| PSU                             | Corsair CX600 |
-| SSD                             | Crucial BX500 240GB |
-| HDD                             | Seagate Barracuda 2TB |
-| OS                              | Windows 10 Pro 64 bit |
+| **Nome**                         | **Hardware** |
+| -------------------------------- | ---------------------------------------- |
+|  CPU                             |  AMD Ryzen 5 1600AF 3.20Ghz Stock |
+|  MOBO                            |  Gigabyte B450M DSH3 rev. 1.0 (F50 BIOS) |
+|  GPU                             |  ASUS Radeon RX 570 ROG Strix 4GB Stock |
+|  RAM                             |  2x8GB Corsair Vengeance LPX DDR4 2666Mhz |
+|  PSU                             |  Corsair CX600 |
+|  SSD                             |  Crucial BX500 240GB |
+|  HDD                             |  Seagate Barracuda 2TB |
+|  OS                              |  Windows 10 Pro 64 bit |
 
 
 ### Configurações da VM no VMWare Workstation Pro 16
@@ -98,7 +98,7 @@ O Ransomware utilziado para teste é um Ransomware próprio e simples com o obje
 ### Teste 1
 
 | **Métrica**                                                     | **Valor** |
-| --------------------------------------------------------------- |
+| --------------------------------------------------------------- | --------- |
 | Quantidade de testes realizados                                 | 20 |
 | Quantidade de diretórios sendo monitorados                      | 1 |
 | Quantidade total de subdiretórios                               | 7 |
