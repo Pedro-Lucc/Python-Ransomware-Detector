@@ -172,9 +172,13 @@ class HoneypotGenerator:
     def __deleteHoneypotsAndRules(self):
         """Função para deletar todos os honeypots"""
         try:
+            json_paths_list = []
             json_file_path = os.path.join(self.path_to_config_folder, self.json_file_name)
-            with open(os.path.join(json_file_path)) as json_file:
-                json_file_hashes = json.load(json_file)
+            with open(os.path.join(json_file_path)) as json:
+                json_file = json.load(json)
+                for dict in json_file:
+                    if dict['absolute-path']:
+                        json_paths_list.append(dict['absolute-path'])
         except FileNotFoundError:
             logger.error(f'Could not find {self.json_file_name} in {self.path_to_config_folder}. Without this file is impossible to properly delete the honeypots')
             quit()
@@ -192,11 +196,10 @@ class HoneypotGenerator:
                 try:
                     if os.access(current_path, os.W_OK):
                         for file in files_in_current_path:
-                            for dict in json_file_hashes:
-                                file_absolute_path = os.path.join(current_path, file)
-                                if file_absolute_path == dict['absolute_path']:
-                                    os.remove(file_absolute_path)
-                                    deleted_count, percentage = self.returnPercentage(directory_count, deleted_count, percentage)
+                            file_absolute_path = os.path.join(current_path, file)
+                            if file_absolute_path in json_paths_list:
+                                os.remove(file_absolute_path)
+                                deleted_count, percentage = self.returnPercentage(directory_count, deleted_count, percentage)
                 except Exception as e:
                     logger.error(e)
                     #logger.error(f'Found an error in {current_path}: {str(e.__class__.__name__)}')

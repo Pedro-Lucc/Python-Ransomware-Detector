@@ -23,6 +23,7 @@ class Audit:
         self.path_to_custom_rule_file = path_to_audit_custom_rule_file
         self.path_to_audit_config = path_to_audit_config
         self.audit_custom_rules_key = audit_custom_rules_key
+        self.inital_rule_count = subprocess.check_output(["sudo auditctl -l | wc -l"], shell=True, stderr=subprocess.DEVNULL).decode()
 
     def setStatus(self, action):
         """Função para ligar ou desligar o serviço de auditoria"""
@@ -62,21 +63,20 @@ class Audit:
     def deleteCustomRuleFileAndRules(self, deleted_count):
         """Função para criar o arquivo que terá as regras para cada honeypot"""
         logger.debug("Deleting audit rules foreach honeypot file")
+        rule_count = subprocess.check_output(["sudo auditctl -l | wc -l"], shell=True, stderr=subprocess.DEVNULL).decode()
         if os.path.exists(self.path_to_custom_rule_file):
             os.remove(self.path_to_custom_rule_file)
         else:
             logger.error("There is not custom rule file in the directory.")
-        rule_count = subprocess.check_output(["sudo auditctl -l | wc -l"], shell=True, stderr=subprocess.DEVNULL).decode()
-        initial_rule_count = rule_count
+
         start = time.perf_counter()
         subprocess.check_output([f"auditctl -D"], shell=True, stderr=subprocess.DEVNULL)
         while int(rule_count) > 1:
             rule_count = subprocess.check_output(["sudo auditctl -l | wc -l"], shell=True, stderr=subprocess.DEVNULL).decode()
-            logger.debug(f"Deleted {str(rule_count).strip()} rules, there are still {int(deleted_count) - int(rule_count) if int(deleted_count) - int(rule_count) == -1 else '0' } to be deleted")
             sleep(1)
 
         end = time.perf_counter()
-        logger.debug(f"Deleted a total of {str(initial_rule_count).strip()} audit rules in {round(end - start, 2)}s")
+        logger.debug(f"Deleted a total of {str(self.initial_rule_count).strip()} audit rules in {round(end - start, 2)}s")
 
     def createAuditRule(self, path_to_honeypot_file):
         """Função para criar uma regra de auditoria"""
@@ -86,7 +86,8 @@ class Audit:
     def loadRules(self, created_count):
         """Função para carregar as regras personalizadas criadas"""
         start = time.perf_counter()
-        logger.debug("Creating audit rules foreach honeypot file. This process may take a while.")
+        logger.debug("Creating audit rules foreach honeypot file. This process may take a while")
+        logger.debug(f"It will be created {created_count} audit rules")
         with open(self.path_to_custom_rule_file) as custom_rule_file:
             for rule in custom_rule_file:
                 subprocess.check_output([f"auditctl {rule.strip()}"], shell=True, stderr=subprocess.DEVNULL)
