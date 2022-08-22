@@ -14,6 +14,7 @@ import os
 import subprocess
 import re
 from time import sleep
+import time
 
 
 class Audit:
@@ -51,31 +52,52 @@ class Audit:
 
     def createCustomRuleFile(self):
         """Função para criar o arquivo que terá as regras para cada honeypot"""
+        os.system("auditctl -D")
         if os.path.exists(self.path_to_custom_rule_file):
             os.remove(self.path_to_custom_rule_file)
 
         with open(self.path_to_custom_rule_file, "w") as custom_rule_file:
             custom_rule_file.write("-D\n")
 
-    def deleteCustomRuleFileAndRules(self):
+    def deleteCustomRuleFileAndRules(self, deleted_count):
         """Função para criar o arquivo que terá as regras para cada honeypot"""
+        logger.debug("Deleting audit rules foreach honeypot file")
         if os.path.exists(self.path_to_custom_rule_file):
             os.remove(self.path_to_custom_rule_file)
         else:
             logger.error("There is not custom rule file in the directory.")
-            subprocess.run(["auditctl", "-D"], capture_output=False)
+        rule_count = subprocess.check_output(["sudo auditctl -l | wc -l"], shell=True, stderr=subprocess.DEVNULL).decode()
+        initial_rule_count = rule_count
+        start = time.perf_counter()
+        subprocess.check_output([f"auditctl -D"], shell=True, stderr=subprocess.DEVNULL)
+        while int(rule_count) > 1:
+            rule_count = subprocess.check_output(["sudo auditctl -l | wc -l"], shell=True, stderr=subprocess.DEVNULL).decode()
+            logger.debug(f"Deleted {str(rule_count).strip()} rules, there are still {int(deleted_count) - int(rule_count) if int(deleted_count) - int(rule_count) == -1 else '0' } to be deleted")
+            sleep(1)
+
+        end = time.perf_counter()
+        logger.debug(f"Deleted a total of {str(initial_rule_count).strip()} audit rules in {round(end - start, 2)}s")
 
     def createAuditRule(self, path_to_honeypot_file):
         """Função para criar uma regra de auditoria"""
         with open(self.path_to_custom_rule_file, "a") as custom_rule_file:
             custom_rule_file.write(f'-w "{path_to_honeypot_file}" -p wa -k {self.audit_custom_rules_key}\n')
 
-    def loadRules(self):
+    def loadRules(self, created_count):
         """Função para carregar as regras personalizadas criadas"""
+        start = time.perf_counter()
+        logger.debug("Creating audit rules foreach honeypot file. This process may take a while.")
         with open(self.path_to_custom_rule_file) as custom_rule_file:
             for rule in custom_rule_file:
-                os.system("auditctl " + rule)
-                #subprocess.run(['auditctl', rule], shell=True, capture_output=False)
+                subprocess.check_output([f"auditctl {rule.strip()}"], shell=True, stderr=subprocess.DEVNULL)
+            rule_count = 0
+            while int(rule_count) < int(created_count):
+                rule_count = subprocess.check_output(["sudo auditctl -l | wc -l"], shell=True, stderr=subprocess.DEVNULL).decode()
+                logger.debug(f"Loaded {str(rule_count).strip()} rules, there are still {int(created_count) - int(rule_count)} to be created")
+                sleep(1)
+
+        end = time.perf_counter()
+        logger.debug(f"Loaded a total of {int(rule_count)} audit rules in {round(end - start, 2)}s")
 
     def getAuditRuleReport(self, action):
         """Função para pegar os reports associados a key do Ransomware e retornar alguma informação"""
