@@ -52,11 +52,12 @@ class FileMonitor:
                                 if current_hash != dict['hash']:
                                     logger.warning(f"Honeypot in {event.src_path} was modified!")
                                     ransomware_pid = self.audit_obj.getAuditRuleReport("pid")
-                                    logger.critical(f"Proabable Ransomware process with PID: {ransomware_pid}")
-                                    if ransomware_pid != None:
+                                    if ransomware_pid != None and ransomware_pid != last_ransomware_pid:
+                                        logger.critical(f"Proabable Ransomware process with PID: {ransomware_pid}")
                                         os.kill(int(ransomware_pid), SIGKILL)
                                         end = time.perf_counter()
                                         logger.critical(f"Proabable Ransomware process with PID {ransomware_pid} was killed in {round(end - start, 3)}s!")
+                                        last_ransomware_pid = ransomware_pid
                 except ProcessLookupError:
                     logger.error(f"Could not find process with PID {ransomware_pid}. If you got a message above with a Ransomware PID, it's likely that the Ransomware process was already killed")
                     if "start" in globals():
@@ -117,6 +118,9 @@ class FileMonitor:
             quit()
 
         logger.debug('File Monitor has started...')
+        global last_ransomware_pid
+        last_ransomware_pid = 0
+
         try:
             while True:
                 continue
