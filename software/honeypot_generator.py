@@ -33,8 +33,13 @@ class HoneypotGenerator:
         self.honeypot_file_extension = honeypot_file_extension
         self.delete = delete
 
-        if honeypot_interval <= 1:
-            logger.error("Honeypot interval should be 2 or greater!")
+        if honeypot_interval <= 1 and not disable_honeypot_interval:
+            logger.error('"Disable Honeyppot Interval" is off, Honeypot interval should be 2 or greater!')
+            quit()
+
+        if honeypot_interval >= 2 and disable_honeypot_interval:
+            logger.error(f'"Disable Honeyppot Interval" is on, changing the "Honeypot Interval" from {honeypot_interval} to 1')
+            self.honeypot_interval = 1
             quit()
 
     def calcPercentage(self, directory_count, counter):
@@ -99,7 +104,7 @@ class HoneypotGenerator:
             percentage = 0.1
             created_count = 0
             for current_path, _, _ in os.walk(directory):
-                if created_count % self.honeypot_interval == 0 or created_count == 0 or self.disable_honeypot_interval:
+                if created_count % self.honeypot_interval == 0 or created_count == 0 or self.honeypot_interval == 1 and self.disable_honeypot_interval:
                     try:
                         if os.access(current_path, os.W_OK):
                             if self.random_honeypot_file_name:
@@ -174,11 +179,11 @@ class HoneypotGenerator:
         try:
             json_paths_list = []
             json_file_path = os.path.join(self.path_to_config_folder, self.json_file_name)
-            with open(os.path.join(json_file_path)) as json:
-                json_file = json.load(json)
+            with open(os.path.join(json_file_path)) as tmp_json_file:
+                json_file = json.load(tmp_json_file)
                 for dict in json_file:
-                    if dict['absolute-path']:
-                        json_paths_list.append(dict['absolute-path'])
+                    if dict['absolute_path']:
+                        json_paths_list.append(dict['absolute_path'])
         except FileNotFoundError:
             logger.error(f'Could not find {self.json_file_name} in {self.path_to_config_folder}. Without this file is impossible to properly delete the honeypots')
             quit()

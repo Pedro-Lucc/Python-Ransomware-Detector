@@ -82,12 +82,12 @@ honeypot_generator = HoneypotGenerator(
     json_file_name=json_file_name,
     honeypot_names_file=honeypot_names_file,
     audit_obj=audit,
-    # honeypot_interval=2,
+    honeypot_interval=1,
     disable_honeypot_interval=True,
     random_honeypot_file_name=False,
     hidden_honeypot_file=True,
     honeypot_file_extension=".txt",
-    delete=False
+    delete=True
 )
 honeypot_generator.run()
 
