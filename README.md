@@ -35,14 +35,14 @@ Todo esse processo descrito acima (do início da detecção até a morto do proc
 
 ## 2. Configurações
 
-### 1.1 Configurações disponíveis do Audit
+### 2.1 Configurações disponíveis do Audit
 
 - **path_to_audit (path):** caminho absoluto para a pasta do serviço de auditoria do Linux;
 - **path_to_audit_config (path):** caminho absoluto da pasta de configurações do serviço de auditoria do Linux;
 - **path_to_audit_custom_rule_file (path):** caminho absoluto para o arquivo com as regras de auditoria para cada honeypot;
 - **audit_custom_rules_key (string):** string que definirá a key para os logs de modificação dos honeypots.
 
-### 1.2 Configurações disponíveis do Gerador de Honeypot
+### 2.2 Configurações disponíveis do Gerador de Honeypot
 
 - **directory_list (list):** lista de diretórios que serão gerados os honeypots;
 - **honeypot_file_name (string):** nome fixo dos arquivos de honeypot (essa opção apenas é utilizada caso a opção "random_honeypot_file_name" esteja desativada);
@@ -57,7 +57,7 @@ Todo esse processo descrito acima (do início da detecção até a morto do proc
 - **honeypot_file_extension (string):** função para definir qual será a extensão dos arquivos de honeypot (o valor padrão é .txt);
 - **delete (bool):** função para definir se o software deve criar novos honeypots ou deletar os já existentes;
 
-### 1.3 Configurações disponíveis do Monitor do Sistema de Arquivos
+### 2.3 Configurações disponíveis do Monitor do Sistema de Arquivos
 
 - **directory_list (list):** lista de diretórios que serão monitorados;
 - **honeypot_file_name (string):** nome fixo dos arquivos de honeypot. Essa opção não é utilizada por padrão;
@@ -66,7 +66,7 @@ Todo esse processo descrito acima (do início da detecção até a morto do proc
 - **honeypot_names_file (string):** nome do arquivo .txt que conterá todos os nomes únicos de cada honeypot gerado (caso a opção "random_honeypot_file_name" esteja desativa, será gerado apenas o nome definido no "honeypot_file_name");
 - **audit_obj (object):** objeto do serviço de auditoria do Linux que foi configurado previamente;
 
-## Tabela de performance
+## 3. Tabela de performance
 
 O Ransomware utilziado para teste é um Ransomware próprio e simples com o objetivo de ser o mais rápido possível, a fim de testar a performance do anti-Ransomware. Os testes foram realizados com o arquivo de log totalmente limpo.
 
