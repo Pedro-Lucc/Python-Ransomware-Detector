@@ -66,8 +66,19 @@ Todo esse processo descrito acima (do início da detecção até a morto do proc
 - **honeypot_names_file (string):** nome do arquivo .txt que conterá todos os nomes únicos de cada honeypot gerado (caso a opção "random_honeypot_file_name" esteja desativa, será gerado apenas o nome definido no "honeypot_file_name");
 - **audit_obj (object):** objeto do serviço de auditoria do Linux que foi configurado previamente;
 
-### Table test
-| Comando | --- |
+## Tabela de performance
+
+O Ransomware utilziado para teste é um Ransomware próprio e simples com o objetivo de ser o mais rápido possível, a fim de testar a performance do anti-Ransomware. Os testes foram realizados com o arquivo de log totalmente limpo.
+
+### Configuração do sistema utilizado para teste
+
+| Nome | Hardware |
 | --- | --- |
-| git status | Lista de todos os arquivos modificados ou novos |
-| git diff | Mostra as diferenças do arquivo que não foram preparadas |
+| CPU |  AMD Ryzen 5 1600AF 3.20Ghz Stock |
+| MOBO |  Gigabyte B450M DSH3 rev. 1.0 (F50 BIOS) |
+| GPU |  ASUS Radeon RX 570 ROG Strix 4GB Stock |
+| RAM |  2x8GB Corsair Vengeance LPX DDR4 2666Mhz |
+| PSU |  Corsair CX600 |
+| SSD |  Crucial BX500 240GB |
+| HDD |  Seagate Barracuda 2TB |
+| OS |  Windows 10 Pro 64 bi |
