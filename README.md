@@ -84,34 +84,64 @@ O Ransomware utilziado para teste é um Ransomware próprio e simples com o obje
 |  OS                              |  Windows 10 Pro 64 bit |
 
 
-### Configurações da VM no VMWare Workstation Pro 16
+### Configurações da VM Ubuntu GNOME no VMWare Workstation Pro 16
 
 | **Configuração** | **Valor** |
 | ---------------- | --------------------- |
-| OS               | Linux Ubuntu 22.04LTS |
+| OS               | Linux Ubuntu GNOME 22.04LTS |
+| RAM              | 1024MB |
+| CPUs             | 1 |
+| Cores            | 2 |
+| HD               | 20GB |
+
+
+### Configurações da VM Ubuntu Server no VMWare Workstation Pro 16
+
+| **Configuração** | **Valor** |
+| ---------------- | --------------------- |
+| OS               | Linux Ubuntu Server 22.04LTS |
 | RAM              | 4096MB |
 | CPUs             | 2 |
 | Cores            | 4 |
 | HD               | 50GB |
 
 
-### Teste 1
+### Teste 1 Ubuntu Server 22.04LTS (VMWare)
 
 | **Métrica**                                                     | **Valor** |
 | --------------------------------------------------------------- | --------- |
 | Quantidade de diretórios sendo monitorados                      | 1 |
-| Quantidade total de subdiretórios                               | 7 |
-| Quantidade total de arquivos                                    | 300 |
-| Tamanho total                                                   | 300MB |
+| Quantidade total de subdiretórios                               | 1 |
+| Quantidade total de arquivos                                    | 10101 |
+| Tamanho total                                                   | 500MB |
 | Nome aleatório de honeypot                                      | desativado |
 | Intervalo de criação de honeypots                               | desativado |
-| Quantidade de honeypots criados                                 | 7 |
-| Tempo médio de criação dos Honeypots                            | 0.005s |
-| Tempo médio de remoção dos Honeypots                            | 0.005s |
-| Tempo médio de criação de todas as regras de auditoria          | 1.034s |
-| Tempo médio de remoção de todas as regras de auditoria          | 1.01s |
-| Tempo médio de detecção e finalização do processo do Ransomware | 0.244s |
-| Quantidade de MBs criptografados                                | 31.5Mb |
+| Quantidade de honeypots criados                                 | 10101 |
+| Tempo médio de criação dos Honeypots                            | 4.32s |
+| Tempo médio de remoção dos Honeypots                            | 38.6s |
+| Tempo médio de criação de todas as regras de auditoria          | 35.3s |
+| Tempo médio de remoção de todas as regras de auditoria          | 9.98s |
+| Tempo médio de detecção e finalização do processo do Ransomware | 4.36s |
+| Quantidade de MBs criptografados                                | 5.7Mb |
+
+
+### Teste 2 Ubuntu GNOME 22.04LTS (VMWare)
+
+| **Métrica**                                                     | **Valor** |
+| --------------------------------------------------------------- | --------- |
+| Quantidade de diretórios sendo monitorados                      | 1 |
+| Quantidade total de subdiretórios                               | 1 |
+| Quantidade total de arquivos                                    | 10101 |
+| Tamanho total                                                   | 500MB |
+| Nome aleatório de honeypot                                      | desativado |
+| Intervalo de criação de honeypots                               | desativado |
+| Quantidade de honeypots criados                                 | 10101 |
+| Tempo médio de criação dos Honeypots                            | 4.32s |
+| Tempo médio de remoção dos Honeypots                            | 38.6s |
+| Tempo médio de criação de todas as regras de auditoria          | 35.3s |
+| Tempo médio de remoção de todas as regras de auditoria          | 9.98s |
+| Tempo médio de detecção e finalização do processo do Ransomware | 4.36s |
+| Quantidade de MBs criptografados                                | 5.7Mb |
 
 
 ## 4. O que é planejado para futuras atualizações?
