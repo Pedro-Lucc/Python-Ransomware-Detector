@@ -11,7 +11,7 @@ O detector de atividade de Ransomware funciona através de honeypots criados em 
 ### 1.2 Como são criados os honeypots?
 
 Antes de qualquer coisa, é necessário entender a criação dos honeypots.
-Estes são criados nos os diretórios passados pelo usuário, assim como os diretórios filhos destes.
+Estes são criados nos diretórios passados pelo usuário, assim como os diretórios filhos destes.
 
 Após a criação de todos os honeypots em todos os diretórios passados, é criado um arquivo .JSON com várias entradas, onde cada uma delas conterá o caminho absoluto do honeypot no sistema de arquivos e uma hash MD5 única para o honeypot em questão.
 
